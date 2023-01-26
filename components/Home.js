@@ -11,6 +11,7 @@ export default function Home({ navigation }) {
   const [items, setItems] = React.useState([]);
 
   const doOnclick = (state) => {
+    console.log(data, state);
     const { lat, lon } = data.find((e) => e.state === state.value);
     navigation.navigate("Results", {
       // TO PASS PARAMS TO THE ROUTE
@@ -19,26 +20,42 @@ export default function Home({ navigation }) {
       city,
     });
   };
+
   const citiesOption = async (e) => {
-    const geoloc = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=e3b9191867c7ac728751e62e58afde2d`
-    );
-    const result = await geoloc.json();
-    setData(
-      result.filter(
-        (v, i, a) => a.findIndex((v2) => v2.state === v.state) === i
-      )
-    );
-    const states = data.map((item) => {
-      const container = {};
+    if (city.length > 2) {
+      const geoloc = await fetch(
+        `http://api.openweathermap.org/geo/1.0/direct?q=${city},fr&limit=5&appid=e3b9191867c7ac728751e62e58afde2d&lang=fr`
+      );
+      const result = await geoloc.json();
+      if (result) {
+        let clearData1 = result.filter((e) => e.local_names);
+        let clearData2 = clearData1.filter(
+          (v, i, a) => a.findIndex((v2) => v2.state === v.state) === i
+        );
+        setData(clearData2);
 
-      container.value = item.state;
-      container.label = item.state;
+        const states = clearData2.map((item) => {
+          const container = {};
 
-      return container;
-    });
-    setItems(states);
+          container.value = item.state;
+          container.label = item.state;
+
+          return container;
+        });
+        setItems(states);
+      }
+    }
   };
+
+  const clearData = () => {
+    setItems([]);
+    setData([]);
+    onChangeCity("");
+  };
+
+  React.useEffect(() => {
+    citiesOption();
+  }, [city]);
 
   return (
     <View style={styles.container}>
@@ -48,17 +65,24 @@ export default function Home({ navigation }) {
         value={city}
         placeholder="Taper votre ville"
       />
-      <Button title="Select state" onPress={citiesOption} />
-      <DropDownPicker
-        placeholder="Select state"
-        open={openDropDown}
-        value={valueDropDown}
-        items={items}
-        setOpen={setOpenDropDown}
-        setValue={setValueDropDown}
-        onSelectItem={(item) => doOnclick(item)}
-        style={styles.dropdown}
-      />
+      {items ? (
+        <View>
+          <DropDownPicker
+            placeholder="Région"
+            open={openDropDown}
+            value={valueDropDown}
+            items={items}
+            setOpen={setOpenDropDown}
+            setValue={setValueDropDown}
+            onSelectItem={(item) => doOnclick(item)}
+          />
+          <View style={styles.clearBtn}>
+            <Button title="clear" onPress={clearData} />
+          </View>
+        </View>
+      ) : (
+        <Text></Text>
+      )}
     </View>
   );
 }
@@ -68,12 +92,14 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   input: {
-    height: 40,
+    height: 45,
     borderWidth: 1,
+    borderRadius: 7,
     padding: 10,
     marginBottom: 20,
+    backgroundColor: "white",
   },
-  dropdown: {
+  clearBtn: {
     marginTop: 20,
   },
 });
