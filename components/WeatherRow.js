@@ -1,4 +1,11 @@
-import { Text, View, StyleSheet, ToastAndroid, Pressable } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  ToastAndroid,
+  Pressable,
+  Image,
+} from "react-native";
 import React from "react";
 import moment from "moment";
 
@@ -34,6 +41,12 @@ export default function row({ item }) {
         <View style={styles.row}>
           <Text style={styles.rowText}>{item.main.temp}°C</Text>
           <Text style={styles.rowText}>{item.weather[0].description}</Text>
+          <Image
+            style={styles.tinyLogo}
+            source={{
+              uri: `http://openweathermap.org/img/w/${item.weather[0].icon}.png`,
+            }}
+          />
         </View>
       </View>
     </Pressable>
@@ -57,5 +70,9 @@ const styles = StyleSheet.create({
   rowText: {
     color: "#FFD166",
     fontSize: 24,
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
   },
 });

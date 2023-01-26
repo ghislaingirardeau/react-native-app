@@ -23,9 +23,12 @@ export default function Results({ route, navigation }) {
     );
     const response = await weather.json();
     if (response) {
+      console.log(response);
       let dailyresult = response.list.filter(
         (e) =>
-          moment(e.dt * 1000).hour() === 19 || moment(e.dt * 1000).hour() === 10
+          moment(e.dt * 1000).hour() === 19 ||
+          moment(e.dt * 1000).hour() === 13 ||
+          moment(e.dt * 1000).hour() === 10
       );
       const { name, sunrise, sunset } = response.city;
 
@@ -38,27 +41,27 @@ export default function Results({ route, navigation }) {
     report();
   }, [city]);
 
-  if (loader) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-        <ActivityIndicator animating={loader} size="large" color="green" />
-      </View>
-    );
-  } else {
-    return (
-      <View>
-        <WeatherSummary
-          city={weatherReport.name}
-          sunrise={weatherReport.sunrise}
-          sunset={weatherReport.sunset}
-        />
-        <FlatList
-          data={weatherReport.list}
-          renderItem={({ item }) => <WeatherRow item={item} />}
-          keyExtractor={(item, index) => item.dt + index}
-        />
-      </View>
-    );
-  }
+  return (
+    <View>
+      {loader ? (
+        <View>
+          <Text>Loading...</Text>
+          <ActivityIndicator animating={loader} size="large" color="green" />
+        </View>
+      ) : (
+        <View>
+          <WeatherSummary
+            city={weatherReport.name}
+            sunrise={weatherReport.sunrise}
+            sunset={weatherReport.sunset}
+          />
+          <FlatList
+            data={weatherReport.list}
+            renderItem={({ item }) => <WeatherRow item={item} />}
+            keyExtractor={(item, index) => item.dt + index}
+          />
+        </View>
+      )}
+    </View>
+  );
 }

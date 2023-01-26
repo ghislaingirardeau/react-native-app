@@ -11,7 +11,6 @@ export default function Home({ navigation }) {
   const [items, setItems] = React.useState([]);
 
   const doOnclick = (state) => {
-    console.log(data, state);
     const { lat, lon } = data.find((e) => e.state === state.value);
     navigation.navigate("Results", {
       // TO PASS PARAMS TO THE ROUTE
@@ -65,7 +64,7 @@ export default function Home({ navigation }) {
         value={city}
         placeholder="Taper votre ville"
       />
-      {items ? (
+      {items.length > 0 ? (
         <View>
           <DropDownPicker
             placeholder="Région"
