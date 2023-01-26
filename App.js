@@ -78,7 +78,7 @@ export default function App() {
             name="Results"
             component={Results}
             options={({ route }) => ({
-              title: `${route.params.city}`,
+              title: `${route.params.city.toUpperCase()}`,
               headerTintColor: "blue",
               ...styleHeader,
             })}
