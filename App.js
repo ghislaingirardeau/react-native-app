@@ -32,12 +32,12 @@ function HomeNavigation() {
         },
         // TO STYLE THE BAR TAB
         //https://reactnavigation.org/docs/material-top-tab-navigator/#tabbarpresscolor
-        tabBarActiveTintColor: "blue",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: "#EF476F",
+        tabBarInactiveTintColor: "#FFD166",
         tabBarStyle: {
-          backgroundColor: "powderblue",
+          backgroundColor: "#073B4C",
           borderTopWidth: 2,
-          borderColor: "grey",
+          borderColor: "#FFD166",
           paddingBottom: 5,
           paddingTop: 2,
         },
@@ -79,7 +79,7 @@ export default function App() {
             component={Results}
             options={({ route }) => ({
               title: `${route.params.city.toUpperCase()}`,
-              headerTintColor: "blue",
+              headerTintColor: "#FFD166",
               ...styleHeader,
             })}
           />
@@ -90,9 +90,9 @@ export default function App() {
 }
 
 const styleHeader = {
-  headerTitleStyle: { color: "white" },
+  headerTitleStyle: { color: "#FFD166" },
   headerTitleAlign: "center",
   headerStyle: {
-    backgroundColor: "orange",
+    backgroundColor: "#073B4C",
   },
 };

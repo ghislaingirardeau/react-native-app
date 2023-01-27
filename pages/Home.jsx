@@ -1,18 +1,36 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, View, Text, TextInput, Button } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import DropDownPicker from "react-native-dropdown-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Home({ navigation }) {
-  const [city, onChangeCity] = React.useState("");
-  const [data, setData] = React.useState([]);
-  const [openDropDown, setOpenDropDown] = React.useState(false);
-  const [valueDropDown, setValueDropDown] = React.useState(null);
-  const [items, setItems] = React.useState([]);
+import TheLastCities from "../components/lastCities";
 
-  const doOnclick = (state) => {
+export default function Home({ navigation }) {
+  const [lastCities, setLastCities] = useState([]);
+  const [city, onChangeCity] = useState("");
+  const [data, setData] = useState([]);
+  const [openDropDown, setOpenDropDown] = useState(false);
+  const [valueDropDown, setValueDropDown] = useState(null);
+  const [items, setItems] = useState([]);
+
+  const loadData = async () => {
+    try {
+      let getStorage = await AsyncStorage.getItem("@myapp");
+      getStorage ? setLastCities(JSON.parse(getStorage).cities) : "";
+    } catch (e) {
+      // saving error
+    }
+  };
+
+  const doOnclick = async (state) => {
     const { lat, lon } = data.find((e) => e.state === state.value);
+    await AsyncStorage.setItem(
+      "@myapp",
+      JSON.stringify({
+        cities: [...lastCities, data.find((e) => e.state === state.value)],
+      })
+    );
     navigation.navigate("Results", {
       // TO PASS PARAMS TO THE ROUTE
       lat,
@@ -53,8 +71,9 @@ export default function Home({ navigation }) {
     onChangeCity("");
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     citiesOption();
+    loadData();
   }, [city]);
 
   return (
@@ -83,6 +102,7 @@ export default function Home({ navigation }) {
       ) : (
         <Text></Text>
       )}
+      <TheLastCities lastCities={lastCities} navigation={navigation} />
     </View>
   );
 }
@@ -93,11 +113,15 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 45,
-    borderWidth: 1,
+    borderWidth: 2,
+    borderColor: "#EF476F",
     borderRadius: 7,
     padding: 10,
     marginBottom: 20,
     backgroundColor: "white",
+    color: "#073B4C",
+    fontSize: 16,
+    fontWeight: "600",
   },
   clearBtn: {
     marginTop: 20,
