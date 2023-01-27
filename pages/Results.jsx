@@ -6,6 +6,7 @@ import {
   FlatList,
 } from "react-native";
 import React from "react";
+import { API_KEY } from "@env";
 
 import WeatherRow from "../components/WeatherRow";
 import WeatherSummary from "../components/WeatherSummary";
@@ -19,7 +20,7 @@ export default function Results({ route, navigation }) {
 
   const report = async () => {
     const weather = await fetch(
-      `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=e3b9191867c7ac728751e62e58afde2d&units=metric`
+      `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
     );
     const response = await weather.json();
     if (response) {

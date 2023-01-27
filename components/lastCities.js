@@ -11,7 +11,6 @@ import {
 export default function TheLastCities({ navigation, lastCities }) {
   const openFavoriteCity = (data) => {
     const { lat, lon, name } = data;
-    console.log(data);
     navigation.navigate("Results", {
       // TO PASS PARAMS TO THE ROUTE
       lat,

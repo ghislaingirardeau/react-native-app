@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput, Button } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import DropDownPicker from "react-native-dropdown-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_KEY } from "@env";
 
 import TheLastCities from "../components/lastCities";
 
@@ -19,18 +20,20 @@ export default function Home({ navigation }) {
       let getStorage = await AsyncStorage.getItem("@myapp");
       getStorage ? setLastCities(JSON.parse(getStorage).cities) : "";
     } catch (e) {
-      // saving error
+      alert("from load", e);
     }
   };
 
   const doOnclick = async (state) => {
     const { lat, lon } = data.find((e) => e.state === state.value);
-    await AsyncStorage.setItem(
-      "@myapp",
-      JSON.stringify({
+    try {
+      let dataToSave = JSON.stringify({
         cities: [...lastCities, data.find((e) => e.state === state.value)],
-      })
-    );
+      });
+      await AsyncStorage.setItem("@myapp", dataToSave);
+    } catch (e) {
+      alert(e);
+    }
     navigation.navigate("Results", {
       // TO PASS PARAMS TO THE ROUTE
       lat,
@@ -42,7 +45,7 @@ export default function Home({ navigation }) {
   const citiesOption = async (e) => {
     if (city.length > 2) {
       const geoloc = await fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${city},fr&limit=5&appid=e3b9191867c7ac728751e62e58afde2d&lang=fr`
+        `http://api.openweathermap.org/geo/1.0/direct?q=${city},fr&limit=5&appid=${API_KEY}&lang=fr`
       );
       const result = await geoloc.json();
       if (result) {

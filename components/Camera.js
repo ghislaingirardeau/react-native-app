@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL, API_TOKEN } from "@env";
 
 export default function App() {
-  console.log(API_URL, API_TOKEN);
   const [value, setValue] = useState([]);
   const storeData = async () => {
     try {
