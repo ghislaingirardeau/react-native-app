@@ -31,7 +31,7 @@ export default function About({ route, navigation }) {
   return (
     <View style={style.container}>
       <Text style={style.titleAbout}>I'm the component About</Text>
-      <Text>This is the description here</Text>
+      <Text>This is the description her</Text>
       <Button title="Press me" onPress={doOnclick} />
       <ActivityIndicator animating={loader} size="large" color="green" />
       <CameraApp />

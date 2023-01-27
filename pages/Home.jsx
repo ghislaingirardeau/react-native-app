@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, TextInput, Button } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import DropDownPicker from "react-native-dropdown-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Home({ navigation }) {
   const [city, onChangeCity] = React.useState("");
