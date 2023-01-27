@@ -4,9 +4,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import About from "./components/About";
-import Home from "./components/Home";
-import Results from "./components/Results";
+import About from "./pages/About";
+import Home from "./pages/Home";
+import Results from "./pages/Results";
 
 const Stack = createNativeStackNavigator(); // stack empile les pages avec un bouton de retour
 const Tab = createBottomTabNavigator(); // pour avoir des tabs comme navigation

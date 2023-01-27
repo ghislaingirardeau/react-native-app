@@ -7,8 +7,8 @@ import {
 } from "react-native";
 import React from "react";
 
-import WeatherRow from "./WeatherRow";
-import WeatherSummary from "./WeatherSummary";
+import WeatherRow from "../components/WeatherRow";
+import WeatherSummary from "../components/WeatherSummary";
 import moment from "moment";
 
 export default function Results({ route, navigation }) {

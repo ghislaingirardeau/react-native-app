@@ -6,6 +6,7 @@ import {
   Button,
 } from "react-native";
 import React from "react";
+import CameraApp from "../components/Camera";
 
 export default function About({ route, navigation }) {
   console.log(navigation);
@@ -33,6 +34,7 @@ export default function About({ route, navigation }) {
       <Text>This is the description here</Text>
       <Button title="Press me" onPress={doOnclick} />
       <ActivityIndicator animating={loader} size="large" color="green" />
+      <CameraApp />
     </View>
   );
 }
