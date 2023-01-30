@@ -44,17 +44,17 @@ function HomeNavigation() {
       })}
     >
       <Tab.Screen
+        name="About"
+        component={About}
+        options={{ headerShown: false }} // HIDE THE HEADER NAME OF THE ROUTE
+      />
+      <Tab.Screen
         name="Home"
         component={Home}
         options={{
           title: "Welcome",
           headerShown: false, // CHANGE THE NAME IN THE HEADER
         }}
-      />
-      <Tab.Screen
-        name="About"
-        component={About}
-        options={{ headerShown: false }} // HIDE THE HEADER NAME OF THE ROUTE
       />
     </Tab.Navigator>
   );

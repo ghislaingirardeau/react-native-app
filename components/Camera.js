@@ -6,14 +6,14 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Image,
+  ImageBackground,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 export default function CameraApp() {
   const [startCamera, setStartCamera] = useState(false);
   const [type, setType] = useState(CameraType.back);
-  const [previewVisible, setPreviewVisible] = useState(true);
+  const [previewVisible, setPreviewVisible] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
@@ -42,10 +42,12 @@ export default function CameraApp() {
 
   async function takePicture() {
     // if the camera is undefined or null, we stop the function execution
+    if (!camera) return;
     const photo = await camera.takePictureAsync();
     console.log(photo);
     setPreviewVisible(true);
     setCapturedImage(photo);
+    setStartCamera(false);
   }
 
   let camera = Camera;
@@ -89,19 +91,14 @@ export default function CameraApp() {
             </TouchableOpacity>
           </View>
           {previewVisible ? (
-            <View
-              style={{
-                backgroundColor: "transparent",
-                flex: 4,
-                width: "100%",
-                height: "100%",
-              }}
-            >
-              <Image
+            <View style={styles.previewImage}>
+              <ImageBackground
                 source={{
-                  uri: "https://cdn.pixabay.com/photo/2022/09/20/19/13/mountains-7468597_960_720.jpg",
+                  uri: capturedImage.uri,
                 }}
-                style={{ width: 400, height: 400 }}
+                style={{
+                  flex: 1,
+                }}
               />
             </View>
           ) : (
@@ -116,8 +113,6 @@ export default function CameraApp() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "flex-start",
   },
   camera: {
     flex: 1,
@@ -134,15 +129,16 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   previewContainer: {
-    margin: "auto",
-  },
-  previewRow: {
     flex: 1,
   },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
+  previewRow: {
+    flex: 2,
+    alignSelf: "center",
+    justifyContent: "center",
+  },
+  previewImage: {
+    backgroundColor: "transparent",
+    flex: 10,
   },
   buttonStartCamera: {
     borderRadius: 4,

@@ -21,7 +21,6 @@ export default function About({ route, navigation }) {
 
   return (
     <View style={style.container}>
-      <Text style={style.titleAbout}>I'm the component About</Text>
       <CameraApp />
     </View>
   );
@@ -37,8 +36,5 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     margin: 5,
-    borderColor: "blue",
-    borderWidth: 2,
-    borderStyle: "solid",
   },
 });
