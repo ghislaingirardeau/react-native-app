@@ -1,11 +1,6 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ActivityIndicator,
-  Button,
-} from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import React from "react";
+import TouchButton from "../components/Touchable";
 import CameraApp from "../components/Camera";
 
 export default function About({ route, navigation }) {
@@ -24,16 +19,9 @@ export default function About({ route, navigation }) {
     return onNavigateToAboutPage;
   }, [navigation]);
 
-  const [loader, setLoader] = React.useState(true);
-  const doOnclick = () => {
-    setLoader(!loader);
-  };
   return (
     <View style={style.container}>
       <Text style={style.titleAbout}>I'm the component About</Text>
-      <Text>This is the description her</Text>
-      <Button title="Press me" onPress={doOnclick} />
-      <ActivityIndicator animating={loader} size="large" color="green" />
       <CameraApp />
     </View>
   );
@@ -47,6 +35,7 @@ const style = StyleSheet.create({
     margin: 5,
   },
   container: {
+    flex: 1,
     margin: 5,
     borderColor: "blue",
     borderWidth: 2,
