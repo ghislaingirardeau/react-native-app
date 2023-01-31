@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { StyleSheet, View, Text, TextInput, Button } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import DropDownPicker from "react-native-dropdown-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_KEY } from "@env";
 
 import TheLastCities from "../components/lastCities";
+import GeoLocation from "../components/geoLocation";
 
 export default function Home({ navigation }) {
   const [lastCities, setLastCities] = useState([]);
@@ -105,6 +105,7 @@ export default function Home({ navigation }) {
       ) : (
         <Text></Text>
       )}
+      <GeoLocation navigation={navigation} />
       <TheLastCities lastCities={lastCities} navigation={navigation} />
     </View>
   );
@@ -121,8 +122,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     padding: 10,
     marginBottom: 20,
-    backgroundColor: "white",
-    color: "#073B4C",
+    color: "#118AB2",
     fontSize: 16,
     fontWeight: "600",
   },

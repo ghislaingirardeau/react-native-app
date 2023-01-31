@@ -4,7 +4,6 @@ import TouchButton from "../components/Touchable";
 import CameraApp from "../components/Camera";
 
 export default function About({ route, navigation }) {
-  console.log(navigation);
   // TO GET THE PARAMS OF THE ROUTE FROM THE PARENT
   if (route.params) {
     const { itemId, otherParam } = route.params;
@@ -12,9 +11,7 @@ export default function About({ route, navigation }) {
   }
   // TRIGGER AN EVENT WHEN CHANGING THE NAVIGATION
   React.useEffect(() => {
-    const onNavigateToAboutPage = navigation.addListener("focus", () => {
-      console.log(route);
-    });
+    const onNavigateToAboutPage = navigation.addListener("focus", () => {});
 
     return onNavigateToAboutPage;
   }, [navigation]);

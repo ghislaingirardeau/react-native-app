@@ -39,15 +39,10 @@ function HomeNavigation() {
           borderTopWidth: 2,
           borderColor: "#FFD166",
           paddingBottom: 5,
-          paddingTop: 2,
+          paddingTop: 5,
         },
       })}
     >
-      <Tab.Screen
-        name="About"
-        component={About}
-        options={{ headerShown: false }} // HIDE THE HEADER NAME OF THE ROUTE
-      />
       <Tab.Screen
         name="Home"
         component={Home}
@@ -55,6 +50,11 @@ function HomeNavigation() {
           title: "Welcome",
           headerShown: false, // CHANGE THE NAME IN THE HEADER
         }}
+      />
+      <Tab.Screen
+        name="About"
+        component={About}
+        options={{ headerShown: false }} // HIDE THE HEADER NAME OF THE ROUTE
       />
     </Tab.Navigator>
   );
@@ -69,10 +69,10 @@ export default function App() {
           <Stack.Screen
             name="HomeNav"
             component={HomeNavigation}
-            options={{
-              title: "Rechercher une ville",
+            options={({ route }) => ({
+              title: `Votre météo par ville`,
               ...styleHeader,
-            }}
+            })}
           />
           <Stack.Screen
             name="Results"
@@ -94,5 +94,6 @@ const styleHeader = {
   headerTitleAlign: "center",
   headerStyle: {
     backgroundColor: "#073B4C",
+    height: 80,
   },
 };

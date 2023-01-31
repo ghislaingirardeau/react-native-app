@@ -9,6 +9,7 @@ import {
   ImageBackground,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+/* import * as FileSystem from "expo-file-system"; */
 
 export default function CameraApp() {
   const [startCamera, setStartCamera] = useState(false);
@@ -39,6 +40,18 @@ export default function CameraApp() {
       current === CameraType.back ? CameraType.front : CameraType.back
     );
   }
+
+  /*   async function downloadFile() {
+    const fileUri = `${FileSystem.documentDirectory}test`;
+    const downloadedFile = await FileSystem.downloadAsync(
+      capturedImage.uri,
+      fileUri
+    );
+
+    if (downloadedFile.status != 200) {
+      console.log("error");
+    }
+  } */
 
   async function takePicture() {
     // if the camera is undefined or null, we stop the function execution
@@ -89,6 +102,12 @@ export default function CameraApp() {
             >
               <Ionicons name="camera-outline" size={40} color="white" />
             </TouchableOpacity>
+            {/* <TouchableOpacity
+              style={styles.buttonStartCamera}
+              onPress={downloadFile}
+            >
+              <Ionicons name="download-outline" size={40} color="white" />
+            </TouchableOpacity> */}
           </View>
           {previewVisible ? (
             <View style={styles.previewImage}>

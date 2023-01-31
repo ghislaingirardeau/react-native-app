@@ -5,3 +5,6 @@ npm install @react-navigation/native @react-navigation/native-stack = install th
 https://reactnative.dev/docs/navigation#react-navigation
 
 install web & webview to preview in the browser
+
+colors :
+https://coolors.co/palette/ef476f-ffd166-06d6a0-118ab2-073b4c
