@@ -1,5 +1,5 @@
 import { Camera, CameraType } from "expo-camera";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   StyleSheet,
@@ -9,6 +9,8 @@ import {
   ImageBackground,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { shareAsync } from "expo-sharing";
+import * as MediaLibrary from "expo-media-library";
 
 export default function CameraApp() {
   const [startCamera, setStartCamera] = useState(false);
@@ -16,6 +18,30 @@ export default function CameraApp() {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
   const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [hasMediadLibraryPermission, setHasMediadLibraryPermission] =
+    useState();
+
+  /* useEffect(() => {
+    (async () => {
+      const permission = await Camera.requestCameraPermissionsAsync();
+      const mediaLibraryPermission =
+        await MediaLibrary.requestPermissionsAsync();
+
+      requestPermission(permission.status === "granted");
+      setHasMediadLibraryPermission(
+        mediaLibraryPermission.status === "granted"
+      );
+    })();
+  }, []); */
+
+  const launchCamera = async () => {
+    const permission = await Camera.requestCameraPermissionsAsync();
+    const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
+
+    requestPermission(permission.status === "granted");
+    setHasMediadLibraryPermission(mediaLibraryPermission.status === "granted");
+    setStartCamera(true);
+  };
 
   if (!permission) {
     // Camera permissions are still loading
@@ -40,29 +66,22 @@ export default function CameraApp() {
     );
   }
 
-  /*   async function downloadFile() {
-    const fileUri = `${FileSystem.documentDirectory}test`;
-    const downloadedFile = await FileSystem.downloadAsync(
-      capturedImage.uri,
-      fileUri
-    );
-
-    if (downloadedFile.status != 200) {
-      console.log("error");
-    }
-  } */
-
   async function takePicture() {
     // if the camera is undefined or null, we stop the function execution
     if (!camera) return;
     const photo = await camera.takePictureAsync();
-    console.log(photo);
     setPreviewVisible(true);
     setCapturedImage(photo);
     setStartCamera(false);
   }
 
   let camera = Camera;
+
+  const saveFile = () => {
+    MediaLibrary.saveToLibraryAsync(capturedImage.uri).then(() => {
+      alert("image savedx");
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -97,16 +116,16 @@ export default function CameraApp() {
           <View style={styles.previewRow}>
             <TouchableOpacity
               style={styles.buttonStartCamera}
-              onPress={() => setStartCamera(true)}
+              onPress={launchCamera}
             >
               <Ionicons name="camera-outline" size={40} color="white" />
             </TouchableOpacity>
-            {/* <TouchableOpacity
+            <TouchableOpacity
               style={styles.buttonStartCamera}
-              onPress={downloadFile}
+              onPress={saveFile}
             >
               <Ionicons name="download-outline" size={40} color="white" />
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
           {previewVisible ? (
             <View style={styles.previewImage}>
@@ -151,6 +170,7 @@ const styles = StyleSheet.create({
   },
   previewRow: {
     flex: 2,
+    flexDirection: "row",
     alignSelf: "center",
     justifyContent: "center",
   },
@@ -159,8 +179,10 @@ const styles = StyleSheet.create({
     flex: 10,
   },
   buttonStartCamera: {
+    height: 65,
     borderRadius: 4,
     backgroundColor: "#14274e",
     padding: 10,
+    margin: 10,
   },
 });
