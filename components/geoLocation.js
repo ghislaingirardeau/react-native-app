@@ -48,7 +48,7 @@ export default function geoLocation({ navigation }) {
         {location ? (
           <View style={styles.buttonContent}>
             <Text style={styles.textPosition}>Current position</Text>
-            <Ionicons name="location-outline" size={20} color="#118AB2" />
+            <Ionicons name="location-outline" size={22} color="#118AB2" />
           </View>
         ) : (
           <View style={styles.buttonContent}>
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   button: {
     borderWidth: 2,
-    borderColor: "#EF476F",
+    borderColor: "#FFD166",
     elevation: 3,
     borderRadius: 7,
     padding: 10,

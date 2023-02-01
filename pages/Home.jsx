@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TextInput, Button } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_KEY } from "@env";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import TheLastCities from "../components/lastCities";
 import GeoLocation from "../components/geoLocation";
@@ -81,12 +82,20 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeCity}
-        value={city}
-        placeholder="Taper votre ville"
-      />
+      <View style={styles.buttonContent}>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeCity}
+          value={city}
+          placeholder="Taper votre ville"
+        />
+        <Ionicons
+          style={[{ padding: 10 }]}
+          name="search-outline"
+          size={22}
+          color="#118AB2"
+        />
+      </View>
       {items.length > 0 ? (
         <View>
           <DropDownPicker
@@ -115,18 +124,24 @@ const styles = StyleSheet.create({
   container: {
     margin: 10,
   },
-  input: {
-    height: 45,
+  clearBtn: {
+    marginTop: 20,
+  },
+  buttonContent: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     borderWidth: 2,
     borderColor: "#EF476F",
+    elevation: 3,
     borderRadius: 7,
+    marginVertical: 10,
+  },
+  input: {
+    height: 45,
     padding: 10,
-    marginBottom: 20,
     color: "#118AB2",
     fontSize: 16,
     fontWeight: "600",
-  },
-  clearBtn: {
-    marginTop: 20,
+    flex: 10,
   },
 });

@@ -9,7 +9,6 @@ import {
   ImageBackground,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-/* import * as FileSystem from "expo-file-system"; */
 
 export default function CameraApp() {
   const [startCamera, setStartCamera] = useState(false);
