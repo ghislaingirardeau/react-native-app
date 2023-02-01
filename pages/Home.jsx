@@ -28,10 +28,15 @@ export default function Home({ navigation }) {
   const doOnclick = async (state) => {
     const { lat, lon } = data.find((e) => e.state === state.value);
     try {
-      let dataToSave = JSON.stringify({
-        cities: [...lastCities, data.find((e) => e.state === state.value)],
-      });
-      await AsyncStorage.setItem("@myapp", dataToSave);
+      if (
+        lastCities.find((e) => e.name.toLowerCase() === city.toLowerCase()) ===
+        undefined
+      ) {
+        let dataToSave = JSON.stringify({
+          cities: [...lastCities, data.find((e) => e.state === state.value)],
+        });
+        await AsyncStorage.setItem("@myapp", dataToSave);
+      }
     } catch (e) {
       alert(e);
     }
@@ -69,6 +74,11 @@ export default function Home({ navigation }) {
     }
   };
 
+  const loadResults = () => {
+    if (items.length === 1) return doOnclick(items[0]);
+    else return alert("Pick a state");
+  };
+
   const clearData = () => {
     setItems([]);
     setData([]);
@@ -88,6 +98,8 @@ export default function Home({ navigation }) {
           onChangeText={onChangeCity}
           value={city}
           placeholder="Taper votre ville"
+          onSubmitEditing={loadResults}
+          //onSubmitEditing = to call the function when enter is click on the keyboard
         />
         <Ionicons
           style={[{ padding: 10 }]}
@@ -115,7 +127,11 @@ export default function Home({ navigation }) {
         <Text></Text>
       )}
       <GeoLocation navigation={navigation} />
-      <TheLastCities lastCities={lastCities} navigation={navigation} />
+      <TheLastCities
+        lastCities={lastCities}
+        navigation={navigation}
+        setLastCities={setLastCities}
+      />
     </View>
   );
 }

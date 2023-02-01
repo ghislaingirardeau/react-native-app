@@ -15,21 +15,21 @@ export default function geoLocation({ navigation }) {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const getPosition = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
-      alert(errorMsg);
-      return;
-    }
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        alert("Permission to access location was denied");
+        return;
+      }
+      getPosition();
+    })();
+  }, []);
 
+  const getPosition = async () => {
     let position = await Location.getCurrentPositionAsync({});
     setLocation(position);
   };
-
-  useEffect(() => {
-    getPosition();
-  }, []);
 
   const currentLocation = () => {
     console.log(location.coords.latitude, location.coords.longitude);
@@ -52,10 +52,10 @@ export default function geoLocation({ navigation }) {
           </View>
         ) : (
           <View style={styles.buttonContent}>
-            <ActivityIndicator size="small" color="#FFD166" />
             <Text style={[styles.textPosition, { marginHorizontal: 10 }]}>
               Waiting...
             </Text>
+            <ActivityIndicator size="small" color="#FFD166" />
           </View>
         )}
       </Pressable>

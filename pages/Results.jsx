@@ -24,7 +24,6 @@ export default function Results({ route, navigation }) {
     );
     const response = await weather.json();
     if (response) {
-      console.log(response);
       let dailyresult = response.list.filter(
         (e) =>
           moment(e.dt * 1000).hour() === 19 ||
