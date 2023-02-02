@@ -8,3 +8,8 @@ install web & webview to preview in the browser
 
 colors :
 https://coolors.co/palette/ef476f-ffd166-06d6a0-118ab2-073b4c
+
+fonts:
+npx expo install expo-font @expo-google-fonts/inter
+Creer un composant juste pour le texte afin de le personnalisé pour tout le document
+car on ne peut implementer un css a tout le document
