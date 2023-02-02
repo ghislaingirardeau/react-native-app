@@ -25,10 +25,7 @@ export default function Results({ route, navigation }) {
     const response = await weather.json();
     if (response) {
       let dailyresult = response.list.filter(
-        (e) =>
-          moment(e.dt * 1000).hour() === 19 ||
-          moment(e.dt * 1000).hour() === 13 ||
-          moment(e.dt * 1000).hour() === 10
+        (e) => moment(e.dt * 1000).hour() === 13
       );
       const { name, sunrise, sunset } = response.city;
 

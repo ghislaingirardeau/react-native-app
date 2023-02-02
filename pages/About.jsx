@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import React from "react";
 import TouchButton from "../components/Touchable";
 import CameraApp from "../components/Camera";
+import ImagePickerExample from "../components/ImagePicker";
 
 export default function About({ route, navigation }) {
   // TO GET THE PARAMS OF THE ROUTE FROM THE PARENT
@@ -19,6 +20,7 @@ export default function About({ route, navigation }) {
   return (
     <View style={style.container}>
       <CameraApp />
+      <ImagePickerExample />
     </View>
   );
 }

@@ -29,7 +29,8 @@
     "react-native-web": "~0.18.9",
     "react-native-webview": "11.23.1",
     "expo-sharing": "~11.0.1",
-    "expo-media-library": "~15.0.0"
+    "expo-media-library": "~15.0.0",
+    "expo-image-picker": "~14.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
