@@ -57,7 +57,9 @@ export default function Results({ route, navigation }) {
           />
           <FlatList
             data={weatherReport.list}
-            renderItem={({ item }) => <WeatherRow item={item} />}
+            renderItem={({ item, index }) => (
+              <WeatherRow item={item} index={index} />
+            )}
             keyExtractor={(item, index) => item.dt + index}
           />
         </View>

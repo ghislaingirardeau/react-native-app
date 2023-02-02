@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import FadeInView from "./fadeRow";
 
 export default function TheLastCities({
   navigation,
@@ -37,7 +38,7 @@ export default function TheLastCities({
 
   return (
     <View>
-      <View style={styles.header}>
+      <View style={styles.favoriteHeader}>
         <Text style={styles.title}>My favorite cities</Text>
         <Pressable onPress={removeLocalStorage}>
           <Ionicons name="close-circle-outline" size={22} color="#118AB2" />
@@ -45,24 +46,24 @@ export default function TheLastCities({
       </View>
 
       {lastCities.map((city, index) => (
-        <TouchableHighlight
-          key={index}
-          activeOpacity={0.6}
-          underlayColor="#DDDDDD"
-          onPress={() => openFavoriteCity(city)}
-        >
-          <View style={styles.rowCity}>
-            <Text style={styles.cityText}>{city.name}</Text>
-          </View>
-        </TouchableHighlight>
+        <FadeInView delay={index * 100} key={index}>
+          <TouchableHighlight
+            activeOpacity={0.6}
+            underlayColor="#DDDDDD"
+            onPress={() => openFavoriteCity(city)}
+          >
+            <View style={styles.rowCity}>
+              <Text style={styles.cityText}>{city.name}</Text>
+            </View>
+          </TouchableHighlight>
+        </FadeInView>
       ))}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flex: 1,
+  favoriteHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomColor: "#073B4C",

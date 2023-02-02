@@ -8,8 +8,9 @@ import {
 } from "react-native";
 import React from "react";
 import moment from "moment";
+import FadeInView from "./fadeRow";
 
-export default function row({ item }) {
+export default function row({ item, index }) {
   const showToastWithGravity = (content) => {
     ToastAndroid.showWithGravity(
       `${content}`,
@@ -30,26 +31,28 @@ export default function row({ item }) {
     },
   };
   return (
-    <Pressable onPress={() => showToastWithGravity(item.dt_txt)}>
-      <View style={styles.container}>
-        <View style={styles.row}>
-          <Text style={styles.rowText}>
-            {dateFormat.day()} {dateFormat.date()}
-          </Text>
-          <Text style={styles.rowText}>{dateFormat.hours()}h</Text>
+    <FadeInView delay={index * 100}>
+      <Pressable onPress={() => showToastWithGravity(item.dt_txt)}>
+        <View style={styles.container}>
+          <View style={styles.row}>
+            <Text style={styles.rowText}>
+              {dateFormat.day()} {dateFormat.date()}
+            </Text>
+            <Text style={styles.rowText}>{dateFormat.hours()}h</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.rowText}>{item.main.temp}°C</Text>
+            <Text style={styles.rowText}>{item.weather[0].description}</Text>
+            <Image
+              style={styles.tinyLogo}
+              source={{
+                uri: `http://openweathermap.org/img/w/${item.weather[0].icon}.png`,
+              }}
+            />
+          </View>
         </View>
-        <View style={styles.row}>
-          <Text style={styles.rowText}>{item.main.temp}°C</Text>
-          <Text style={styles.rowText}>{item.weather[0].description}</Text>
-          <Image
-            style={styles.tinyLogo}
-            source={{
-              uri: `http://openweathermap.org/img/w/${item.weather[0].icon}.png`,
-            }}
-          />
-        </View>
-      </View>
-    </Pressable>
+      </Pressable>
+    </FadeInView>
   );
 }
 
