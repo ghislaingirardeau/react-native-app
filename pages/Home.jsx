@@ -35,10 +35,7 @@ export default function Home({ navigation }) {
     console.log(element);
     const { lat, lon } = element;
     try {
-      if (
-        lastCities.find((e) => e.name.toLowerCase() === city.toLowerCase()) ===
-        undefined
-      ) {
+      if (lastCities.find((e) => e.name === element.name) === undefined) {
         let dataToSave = JSON.stringify({
           cities: [...lastCities, element],
         });
@@ -51,7 +48,7 @@ export default function Home({ navigation }) {
       // TO PASS PARAMS TO THE ROUTE
       lat,
       lon,
-      city,
+      city: element.name,
     });
   };
 
