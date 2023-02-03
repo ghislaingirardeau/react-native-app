@@ -77,7 +77,7 @@ export default function App() {
   }
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar hidden={true}></StatusBar>
+      {/* <StatusBar hidden={true}></StatusBar> */}
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -109,11 +109,9 @@ const styleHeader = {
     color: globalStyle.colorSecond,
     fontFamily: "Handlee_400Regular",
     fontSize: 25,
-    paddingTop: 70,
   },
   headerTitleAlign: "center",
   headerStyle: {
     backgroundColor: globalStyle.colorPrimary,
-    height: 100,
   },
 };

@@ -70,10 +70,12 @@ export default function geoLocation({ navigation }) {
           </View>
         ) : (
           <View style={styles.buttonContent}>
-            <Text style={[styles.textPosition, { marginHorizontal: 10 }]}>
-              Waiting...
-            </Text>
-            <ActivityIndicator size="small" color={globalStyle.colorSecond} />
+            <Text style={[styles.textPosition]}>Waiting...</Text>
+            <ActivityIndicator
+              size="small"
+              color={globalStyle.colorPrimary}
+              style={[{ padding: 5, position: "absolute", right: 0, top: 0 }]}
+            />
           </View>
         )}
       </Pressable>

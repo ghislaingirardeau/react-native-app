@@ -1,12 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  Button,
-  TouchableHighlight,
-} from "react-native";
+import { StyleSheet, View, Text, TextInput } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_KEY } from "@env";
 import Ionicons from "react-native-vector-icons/Ionicons";
