@@ -53,8 +53,8 @@ export default function TheLastCities({
         <Pressable onPress={removeLocalStorage}>
           <Ionicons
             name="close-circle-outline"
-            size={22}
-            color={globalStyle.colorThird}
+            size={28}
+            color={globalStyle.colorFourth}
           />
         </Pressable>
       </View>
@@ -78,7 +78,7 @@ export default function TheLastCities({
 
 const styles = StyleSheet.create({
   favoriteContainer: {
-    flex: 8,
+    flex: 9,
   },
   favoriteHeader: {
     flexDirection: "row",

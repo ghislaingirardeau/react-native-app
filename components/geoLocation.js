@@ -63,8 +63,9 @@ export default function geoLocation({ navigation }) {
             <Text style={styles.textPosition}>Trouver moi</Text>
             <Ionicons
               name="location-outline"
-              size={22}
-              color={globalStyle.colorThird}
+              size={28}
+              color={globalStyle.colorFourth}
+              style={[{ padding: 5, position: "absolute", right: 0, top: -10 }]}
             />
           </View>
         ) : (
@@ -90,8 +91,7 @@ const styles = StyleSheet.create({
   },
   button: {
     borderWidth: 2,
-    borderColor: globalStyle.colorSecond,
-    elevation: 3,
+    borderColor: globalStyle.colorFourth,
     borderRadius: 7,
     padding: 10,
     marginVertical: 10,
@@ -102,9 +102,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "Handlee_400Regular",
   },
-  buttonContent: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: 5,
-  },
+  buttonContent: {},
 });

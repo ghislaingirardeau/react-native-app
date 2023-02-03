@@ -80,6 +80,32 @@ export default function Home({ navigation }) {
     onChangeCity("");
   };
 
+  const SelectModal = () => {
+    return (
+      <View style={globalStyle.homeSelect}>
+        {data.length > 1 ? (
+          <View>
+            <Text style={globalStyle.homeSelectTitle}>Choisis une région</Text>
+            {data.map((elt, index) => (
+              <TouchableHighlight
+                key={index}
+                activeOpacity={0.6}
+                underlayColor="#DDDDDD"
+                onPress={() => doOnclick(elt)}
+              >
+                <View style={globalStyle.homeRowSelect}>
+                  <Text style={globalStyle.homeRowSelectText}>{elt.state}</Text>
+                </View>
+              </TouchableHighlight>
+            ))}
+          </View>
+        ) : (
+          <Text></Text>
+        )}
+      </View>
+    );
+  };
+
   useEffect(() => {
     citiesOption();
   }, [city]);
@@ -109,44 +135,28 @@ export default function Home({ navigation }) {
         />
         {data.length === 1 ? (
           <Ionicons
-            style={[{ padding: 10, position: "absolute", right: 5 }]}
+            style={[{ padding: 5, position: "absolute", right: 5 }]}
             name="checkmark-circle-outline"
-            size={22}
-            color={globalStyle.colorThird}
+            size={28}
+            color={globalStyle.colorFourth}
           />
         ) : (
           <Ionicons
-            style={[{ padding: 10, position: "absolute", right: 5 }]}
+            style={[{ padding: 5, position: "absolute", right: 5 }]}
             name="search-outline"
-            size={22}
-            color={globalStyle.colorThird}
+            size={28}
+            color={globalStyle.colorFourth}
           />
         )}
       </View>
-      {data.length > 1 ? (
-        <View style={{ marginVertical: 10 }}>
-          {data.map((elt, index) => (
-            <TouchableHighlight
-              key={index}
-              activeOpacity={0.6}
-              underlayColor="#DDDDDD"
-              onPress={() => doOnclick(elt)}
-            >
-              <View style={globalStyle.homeRowCity}>
-                <Text style={globalStyle.HomeRowCityText}>{elt.state}</Text>
-              </View>
-            </TouchableHighlight>
-          ))}
-        </View>
-      ) : (
-        <Text></Text>
-      )}
+
       <GeoLocation navigation={navigation} />
       <TheLastCities
         lastCities={lastCities}
         navigation={navigation}
         setLastCities={setLastCities}
       />
+      <SelectModal />
     </View>
   );
 }
@@ -155,6 +165,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
     flex: 1,
+    backgroundColor: globalStyle.colorSecond,
   },
   clearBtn: {
     marginTop: 20,
@@ -163,14 +174,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    elevation: 3,
-    height: 50,
-    marginVertical: 10,
+    flexWrap: "wrap",
+    marginVertical: 20,
   },
   input: {
     height: 45,
     padding: 10,
     color: globalStyle.colorThird,
+    borderColor: globalStyle.colorFourth,
+    borderWidth: 2,
     fontSize: 16,
     fontWeight: "600",
     borderRadius: 5,
