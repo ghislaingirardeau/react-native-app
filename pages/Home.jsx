@@ -21,6 +21,7 @@ export default function Home({ navigation }) {
   const [lastCities, setLastCities] = useState([]);
   const [city, onChangeCity] = useState("");
   const [data, setData] = useState([]);
+  const [showModal, setShowModal] = useState(true);
 
   const loadData = async () => {
     try {
@@ -44,6 +45,7 @@ export default function Home({ navigation }) {
     } catch (e) {
       alert(e);
     }
+    setShowModal(false);
     navigation.navigate("Results", {
       // TO PASS PARAMS TO THE ROUTE
       lat,
@@ -63,6 +65,7 @@ export default function Home({ navigation }) {
         let clearData2 = clearData1.filter(
           (v, i, a) => a.findIndex((v2) => v2.state === v.state) === i
         );
+        setShowModal(true);
         setData(clearData2);
       }
     }
@@ -107,14 +110,14 @@ export default function Home({ navigation }) {
         />
         {data.length === 1 ? (
           <Ionicons
-            style={[{ padding: 5, position: "absolute", right: 5 }]}
+            style={[{ padding: 5, position: "absolute", right: 7 }]}
             name="checkmark-circle-outline"
             size={28}
-            color={globalStyle.colorFourth}
+            color={globalStyle.colorThird}
           />
         ) : (
           <Ionicons
-            style={[{ padding: 5, position: "absolute", right: 5 }]}
+            style={[{ padding: 5, position: "absolute", right: 7 }]}
             name="search-outline"
             size={28}
             color={globalStyle.colorFourth}
@@ -128,7 +131,7 @@ export default function Home({ navigation }) {
         navigation={navigation}
         setLastCities={setLastCities}
       />
-      <SelectModal datas={data} doOnclick={doOnclick} />
+      <SelectModal datas={data} doOnclick={doOnclick} showModal={showModal} />
     </View>
   );
 }
@@ -153,12 +156,12 @@ const styles = StyleSheet.create({
     height: 45,
     padding: 10,
     color: globalStyle.colorThird,
-    borderColor: globalStyle.colorFourth,
     borderWidth: 2,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "bold",
     borderRadius: 5,
     flex: 5,
     fontFamily: "Handlee_400Regular",
+    borderColor: globalStyle.colorThird,
   },
 });

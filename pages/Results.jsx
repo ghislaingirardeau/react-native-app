@@ -10,6 +10,7 @@ import { API_KEY } from "@env";
 
 import WeatherRow from "../components/WeatherRow";
 import WeatherSummary from "../components/WeatherSummary";
+import globalStyle from "../assets/style/style";
 import moment from "moment";
 
 export default function Results({ route, navigation }) {
@@ -29,7 +30,9 @@ export default function Results({ route, navigation }) {
       );
       const { name, sunrise, sunset } = response.city;
 
-      setLoader(false);
+      setTimeout(() => {
+        setLoader(false);
+      }, 500);
       setWeatherReport({ list: dailyresult, name, sunrise, sunset });
     }
   };
@@ -41,9 +44,12 @@ export default function Results({ route, navigation }) {
   return (
     <View>
       {loader ? (
-        <View>
-          <Text>Loading...</Text>
-          <ActivityIndicator animating={loader} size="large" color="green" />
+        <View style={[{ marginTop: 10 }]}>
+          <ActivityIndicator
+            animating={loader}
+            size="large"
+            color={globalStyle.colorFifth}
+          />
         </View>
       ) : (
         <View>

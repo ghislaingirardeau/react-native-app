@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Text,
@@ -40,7 +40,7 @@ export default function geoLocation({ navigation }) {
       // TO PASS PARAMS TO THE ROUTE
       lat: location.coords.latitude,
       lon: location.coords.longitude,
-      city: "My current position",
+      city: "My position",
     });
   };
 
@@ -83,7 +83,7 @@ export default function geoLocation({ navigation }) {
 
 const styles = StyleSheet.create({
   geoContainer: {
-    flex: 3,
+    flex: 2,
   },
   title: {
     borderBottomColor: globalStyle.colorPrimary,
@@ -91,14 +91,14 @@ const styles = StyleSheet.create({
   },
   button: {
     borderWidth: 2,
-    borderColor: globalStyle.colorFourth,
+    borderColor: globalStyle.colorThird,
     borderRadius: 7,
     padding: 10,
     marginVertical: 10,
   },
   textPosition: {
     color: globalStyle.colorThird,
-    fontWeight: "600",
+    fontWeight: "bold",
     fontSize: 16,
     fontFamily: "Handlee_400Regular",
   },

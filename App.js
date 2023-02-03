@@ -16,12 +16,6 @@ const Tab = createBottomTabNavigator(); // pour avoir des tabs comme navigation
 // drawer navigation = pour avoir un menu qui apparait / disparait
 
 function HomeNavigation() {
-  let [fontsLoaded] = useFonts({
-    Handlee_400Regular,
-  });
-  if (!fontsLoaded) {
-    return null;
-  }
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -75,6 +69,12 @@ function HomeNavigation() {
 }
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    Handlee_400Regular,
+  });
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <View style={{ flex: 1 }}>
       <StatusBar hidden={true}></StatusBar>
@@ -108,11 +108,12 @@ const styleHeader = {
   headerTitleStyle: {
     color: globalStyle.colorSecond,
     fontFamily: "Handlee_400Regular",
-    fontSize: 30,
+    fontSize: 25,
+    paddingTop: 70,
   },
   headerTitleAlign: "center",
   headerStyle: {
     backgroundColor: globalStyle.colorPrimary,
-    height: 80,
+    height: 100,
   },
 };

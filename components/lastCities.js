@@ -79,6 +79,7 @@ export default function TheLastCities({
 const styles = StyleSheet.create({
   favoriteContainer: {
     flex: 9,
+    marginTop: 10,
   },
   favoriteHeader: {
     flexDirection: "row",

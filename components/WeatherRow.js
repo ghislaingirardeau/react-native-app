@@ -6,7 +6,6 @@ import {
   Pressable,
   Image,
 } from "react-native";
-import React from "react";
 import moment from "moment";
 import FadeInView from "./fadeRow";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -15,8 +14,9 @@ import globalStyle from "../assets/style/style";
 
 export default function row({ item, index }) {
   const showToastWithGravity = (content) => {
+    console.log(content);
     ToastAndroid.showWithGravity(
-      `${content}`,
+      `${content.weather[0].description}`,
       ToastAndroid.SHORT,
       ToastAndroid.TOP
     );
@@ -64,7 +64,7 @@ export default function row({ item, index }) {
   };
   return (
     <FadeInView delay={index * 100}>
-      <Pressable onPress={() => showToastWithGravity(item.dt_txt)}>
+      <Pressable onPress={() => showToastWithGravity(item)}>
         <View style={index == 0 ? styles.firstContainer : styles.container}>
           <View style={index == 0 ? styles.firstRowFull : styles.rowFull}>
             <Ionicons

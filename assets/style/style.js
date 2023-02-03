@@ -9,7 +9,7 @@ export default {
     padding: 10,
     marginBottom: 5,
     borderBottomWidth: 3,
-    borderColor: "#06D6A0",
+    borderColor: "#118AB2",
   },
   HomeRowCityText: {
     color: "#118AB2",
@@ -25,9 +25,10 @@ export default {
     zIndex: 10,
     elevation: 3,
     position: "absolute",
-    width: "95%",
+    width: "100%",
     borderRadius: 5,
     top: 70,
+    marginLeft: 10,
   },
   homeSelectTitle: {
     color: "#FFD166",
