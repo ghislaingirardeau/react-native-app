@@ -14,6 +14,7 @@ import globalStyle from "../assets/style/style";
 
 import TheLastCities from "../components/lastCities";
 import GeoLocation from "../components/geoLocation";
+import SelectModal from "../components/modal/ModalSelect";
 import { useFonts, Handlee_400Regular } from "@expo-google-fonts/handlee"; // importer la font que l'on souhaite sur google
 
 export default function Home({ navigation }) {
@@ -80,32 +81,6 @@ export default function Home({ navigation }) {
     onChangeCity("");
   };
 
-  const SelectModal = () => {
-    return (
-      <View style={globalStyle.homeSelect}>
-        {data.length > 1 ? (
-          <View>
-            <Text style={globalStyle.homeSelectTitle}>Choisis une région</Text>
-            {data.map((elt, index) => (
-              <TouchableHighlight
-                key={index}
-                activeOpacity={0.6}
-                underlayColor="#DDDDDD"
-                onPress={() => doOnclick(elt)}
-              >
-                <View style={globalStyle.homeRowSelect}>
-                  <Text style={globalStyle.homeRowSelectText}>{elt.state}</Text>
-                </View>
-              </TouchableHighlight>
-            ))}
-          </View>
-        ) : (
-          <Text></Text>
-        )}
-      </View>
-    );
-  };
-
   useEffect(() => {
     citiesOption();
   }, [city]);
@@ -156,7 +131,7 @@ export default function Home({ navigation }) {
         navigation={navigation}
         setLastCities={setLastCities}
       />
-      <SelectModal />
+      <SelectModal datas={data} doOnclick={doOnclick} />
     </View>
   );
 }
