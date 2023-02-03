@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, View, Text, TextInput, Button } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  Button,
+  TouchableHighlight,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_KEY } from "@env";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import globalStyle from "../assets/style/style";
 
 import TheLastCities from "../components/lastCities";
 import GeoLocation from "../components/geoLocation";
@@ -13,9 +20,6 @@ export default function Home({ navigation }) {
   const [lastCities, setLastCities] = useState([]);
   const [city, onChangeCity] = useState("");
   const [data, setData] = useState([]);
-  const [openDropDown, setOpenDropDown] = useState(false);
-  const [valueDropDown, setValueDropDown] = useState(null);
-  const [items, setItems] = useState([]);
 
   const loadData = async () => {
     try {
@@ -26,15 +30,16 @@ export default function Home({ navigation }) {
     }
   };
 
-  const doOnclick = async (state) => {
-    const { lat, lon } = data.find((e) => e.state === state.value);
+  const doOnclick = async (element) => {
+    console.log(element);
+    const { lat, lon } = element;
     try {
       if (
         lastCities.find((e) => e.name.toLowerCase() === city.toLowerCase()) ===
         undefined
       ) {
         let dataToSave = JSON.stringify({
-          cities: [...lastCities, data.find((e) => e.state === state.value)],
+          cities: [...lastCities, element],
         });
         await AsyncStorage.setItem("@myapp", dataToSave);
       }
@@ -61,35 +66,27 @@ export default function Home({ navigation }) {
           (v, i, a) => a.findIndex((v2) => v2.state === v.state) === i
         );
         setData(clearData2);
-
-        const states = clearData2.map((item) => {
-          const container = {};
-
-          container.value = item.state;
-          container.label = item.state;
-
-          return container;
-        });
-        setItems(states);
       }
     }
   };
 
   const loadResults = () => {
-    if (items.length === 1) return doOnclick(items[0]);
+    if (data.length === 1) return doOnclick(data[0]);
     else return alert("Pick a state");
   };
 
   const clearData = () => {
-    setItems([]);
     setData([]);
     onChangeCity("");
   };
 
   useEffect(() => {
     citiesOption();
-    loadData();
   }, [city]);
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   let [fontsLoaded] = useFonts({
     Handlee_400Regular,
@@ -107,29 +104,39 @@ export default function Home({ navigation }) {
           value={city}
           placeholder="Taper votre ville"
           onSubmitEditing={loadResults}
+          onFocus={clearData}
           //onSubmitEditing = to call the function when enter is click on the keyboard
         />
-        <Ionicons
-          style={[{ padding: 10 }]}
-          name="search-outline"
-          size={22}
-          color="#118AB2"
-        />
-      </View>
-      {items.length > 0 ? (
-        <View>
-          <DropDownPicker
-            placeholder="Région"
-            open={openDropDown}
-            value={valueDropDown}
-            items={items}
-            setOpen={setOpenDropDown}
-            setValue={setValueDropDown}
-            onSelectItem={(item) => doOnclick(item)}
+        {data.length === 1 ? (
+          <Ionicons
+            style={[{ padding: 10, position: "absolute", right: 5 }]}
+            name="checkmark-circle-outline"
+            size={22}
+            color={globalStyle.colorThird}
           />
-          <View style={styles.clearBtn}>
-            <Button title="clear" onPress={clearData} />
-          </View>
+        ) : (
+          <Ionicons
+            style={[{ padding: 10, position: "absolute", right: 5 }]}
+            name="search-outline"
+            size={22}
+            color={globalStyle.colorThird}
+          />
+        )}
+      </View>
+      {data.length > 1 ? (
+        <View style={{ marginVertical: 10 }}>
+          {data.map((elt, index) => (
+            <TouchableHighlight
+              key={index}
+              activeOpacity={0.6}
+              underlayColor="#DDDDDD"
+              onPress={() => doOnclick(elt)}
+            >
+              <View style={globalStyle.homeRowCity}>
+                <Text style={globalStyle.HomeRowCityText}>{elt.state}</Text>
+              </View>
+            </TouchableHighlight>
+          ))}
         </View>
       ) : (
         <Text></Text>
@@ -146,27 +153,28 @@ export default function Home({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
+    paddingHorizontal: 10,
+    flex: 1,
   },
   clearBtn: {
     marginTop: 20,
   },
   buttonContent: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    borderWidth: 2,
-    borderColor: "#EF476F",
     elevation: 3,
-    borderRadius: 7,
+    height: 50,
     marginVertical: 10,
   },
   input: {
     height: 45,
     padding: 10,
-    color: "#118AB2",
+    color: globalStyle.colorThird,
     fontSize: 16,
     fontWeight: "600",
-    flex: 10,
+    borderRadius: 5,
+    flex: 5,
     fontFamily: "Handlee_400Regular",
   },
 });

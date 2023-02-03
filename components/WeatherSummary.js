@@ -4,6 +4,7 @@ import moment from "moment";
 import "moment/locale/fr";
 moment.locale("fr");
 import CustomText from "./text/CustomText";
+import globalStyle from "../assets/style/style";
 
 export default function Summary({ city, sunrise, sunset }) {
   return (
@@ -20,11 +21,11 @@ export default function Summary({ city, sunrise, sunset }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#118AB2",
+    backgroundColor: globalStyle.colorThird,
     padding: 15,
   },
   rowText: {
-    color: "#FFD166",
+    color: globalStyle.colorSecond,
     fontSize: 24,
     fontWeight: "bold",
   },

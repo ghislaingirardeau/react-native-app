@@ -8,6 +8,8 @@ import {
   Pressable,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import globalStyle from "../assets/style/style";
+
 import { useFonts, Handlee_400Regular } from "@expo-google-fonts/handlee"; // importer la font que l'on souhaite sur google
 
 import * as Location from "expo-location";
@@ -50,20 +52,27 @@ export default function geoLocation({ navigation }) {
   }
 
   return (
-    <View>
-      <Text style={styles.title}>Depuis ma position</Text>
+    <View style={styles.geoContainer}>
+      <View style={styles.title}>
+        <Text style={globalStyle.sectionTitle}>Depuis ma position</Text>
+      </View>
+
       <Pressable style={styles.button} onPress={currentLocation}>
         {location ? (
           <View style={styles.buttonContent}>
             <Text style={styles.textPosition}>Trouver moi</Text>
-            <Ionicons name="location-outline" size={22} color="#118AB2" />
+            <Ionicons
+              name="location-outline"
+              size={22}
+              color={globalStyle.colorThird}
+            />
           </View>
         ) : (
           <View style={styles.buttonContent}>
             <Text style={[styles.textPosition, { marginHorizontal: 10 }]}>
               Waiting...
             </Text>
-            <ActivityIndicator size="small" color="#FFD166" />
+            <ActivityIndicator size="small" color={globalStyle.colorSecond} />
           </View>
         )}
       </Pressable>
@@ -72,25 +81,23 @@ export default function geoLocation({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  geoContainer: {
+    flex: 3,
+  },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-    color: "#073B4C",
-    borderBottomColor: "#073B4C",
+    borderBottomColor: globalStyle.colorPrimary,
     borderBottomWidth: 2,
-    fontFamily: "Handlee_400Regular",
   },
   button: {
     borderWidth: 2,
-    borderColor: "#FFD166",
+    borderColor: globalStyle.colorSecond,
     elevation: 3,
     borderRadius: 7,
     padding: 10,
     marginVertical: 10,
   },
   textPosition: {
-    color: "#118AB2",
+    color: globalStyle.colorThird,
     fontWeight: "600",
     fontSize: 16,
     fontFamily: "Handlee_400Regular",

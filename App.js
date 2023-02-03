@@ -9,6 +9,8 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
 
+import globalStyle from "./assets/style/style";
+
 const Stack = createNativeStackNavigator(); // stack empile les pages avec un bouton de retour
 const Tab = createBottomTabNavigator(); // pour avoir des tabs comme navigation
 // drawer navigation = pour avoir un menu qui apparait / disparait
@@ -39,12 +41,12 @@ function HomeNavigation() {
         },
         // TO STYLE THE BAR TAB
         //https://reactnavigation.org/docs/material-top-tab-navigator/#tabbarpresscolor
-        tabBarActiveTintColor: "#EF476F",
-        tabBarInactiveTintColor: "#FFD166",
+        tabBarActiveTintColor: globalStyle.colorFourth,
+        tabBarInactiveTintColor: globalStyle.colorSecond,
         tabBarStyle: {
-          backgroundColor: "#073B4C",
+          backgroundColor: globalStyle.colorPrimary,
           borderTopWidth: 2,
-          borderColor: "#FFD166",
+          borderColor: globalStyle.colorSecond,
           paddingBottom: 5,
           paddingTop: 5,
           height: 60,
@@ -92,7 +94,7 @@ export default function App() {
             component={Results}
             options={({ route }) => ({
               title: `${route.params.city.toUpperCase()}`,
-              headerTintColor: "#FFD166",
+              headerTintColor: globalStyle.colorSecond,
               ...styleHeader,
             })}
           />
@@ -104,13 +106,13 @@ export default function App() {
 
 const styleHeader = {
   headerTitleStyle: {
-    color: "#FFD166",
+    color: globalStyle.colorSecond,
     fontFamily: "Handlee_400Regular",
     fontSize: 30,
   },
   headerTitleAlign: "center",
   headerStyle: {
-    backgroundColor: "#073B4C",
+    backgroundColor: globalStyle.colorPrimary,
     height: 80,
   },
 };

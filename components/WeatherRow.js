@@ -11,6 +11,7 @@ import moment from "moment";
 import FadeInView from "./fadeRow";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import CustomText from "./text/CustomText";
+import globalStyle from "../assets/style/style";
 
 export default function row({ item, index }) {
   const showToastWithGravity = (content) => {
@@ -100,7 +101,7 @@ export default function row({ item, index }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#073B4C",
+    backgroundColor: globalStyle.colorPrimary,
     borderWidth: 2,
     borderColor: "#06D6A0",
     flex: 1,
@@ -110,11 +111,11 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   firstContainer: {
-    backgroundColor: "#118AB2",
+    backgroundColor: globalStyle.colorThird,
     borderBottomWidth: 2,
     borderBottomColor: "#06D6A0",
     borderTopWidth: 2,
-    borderTopColor: "#FFD166",
+    borderTopColor: globalStyle.colorSecond,
     flex: 1,
     flexWrap: "wrap",
     justifyContent: "center",
