@@ -11,6 +11,7 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FadeInView from "./fadeRow";
+import { useFonts, Handlee_400Regular } from "@expo-google-fonts/handlee"; // importer la font que l'on souhaite sur google
 
 export default function TheLastCities({
   navigation,
@@ -27,6 +28,13 @@ export default function TheLastCities({
     });
   };
 
+  let [fontsLoaded] = useFonts({
+    Handlee_400Regular,
+  });
+  if (!fontsLoaded) {
+    return null;
+  }
+
   const removeLocalStorage = async () => {
     try {
       await AsyncStorage.removeItem("@myapp");
@@ -39,7 +47,7 @@ export default function TheLastCities({
   return (
     <View>
       <View style={styles.favoriteHeader}>
-        <Text style={styles.title}>My favorite cities</Text>
+        <Text style={styles.title}>Mes villes favorites</Text>
         <Pressable onPress={removeLocalStorage}>
           <Ionicons name="close-circle-outline" size={22} color="#118AB2" />
         </Pressable>
@@ -75,6 +83,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     color: "#073B4C",
+    fontFamily: "Handlee_400Regular",
   },
   rowCity: {
     height: 45,
@@ -87,5 +96,6 @@ const styles = StyleSheet.create({
     color: "#118AB2",
     fontSize: 16,
     fontWeight: "bold",
+    fontFamily: "Handlee_400Regular",
   },
 });

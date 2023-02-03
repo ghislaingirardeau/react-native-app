@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useFonts, Handlee_400Regular } from "@expo-google-fonts/handlee"; // importer la font que l'on souhaite sur google
 
 import About from "./pages/About";
 import Home from "./pages/Home";
@@ -13,6 +14,12 @@ const Tab = createBottomTabNavigator(); // pour avoir des tabs comme navigation
 // drawer navigation = pour avoir un menu qui apparait / disparait
 
 function HomeNavigation() {
+  let [fontsLoaded] = useFonts({
+    Handlee_400Regular,
+  });
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -40,6 +47,11 @@ function HomeNavigation() {
           borderColor: "#FFD166",
           paddingBottom: 5,
           paddingTop: 5,
+          height: 60,
+        },
+        tabBarLabelStyle: {
+          fontFamily: "Handlee_400Regular",
+          fontSize: 15,
         },
       })}
     >
@@ -71,6 +83,7 @@ export default function App() {
             component={HomeNavigation}
             options={({ route }) => ({
               title: `Votre météo par ville`,
+
               ...styleHeader,
             })}
           />
@@ -90,7 +103,11 @@ export default function App() {
 }
 
 const styleHeader = {
-  headerTitleStyle: { color: "#FFD166" },
+  headerTitleStyle: {
+    color: "#FFD166",
+    fontFamily: "Handlee_400Regular",
+    fontSize: 30,
+  },
   headerTitleAlign: "center",
   headerStyle: {
     backgroundColor: "#073B4C",

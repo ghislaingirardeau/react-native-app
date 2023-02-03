@@ -64,23 +64,31 @@ export default function row({ item, index }) {
   return (
     <FadeInView delay={index * 100}>
       <Pressable onPress={() => showToastWithGravity(item.dt_txt)}>
-        <View style={styles.container}>
-          <View style={styles.rowFull}>
+        <View style={index == 0 ? styles.firstContainer : styles.container}>
+          <View style={index == 0 ? styles.firstRowFull : styles.rowFull}>
             <Ionicons
               name={nameIcons(item.weather[0].icon)}
-              size={62}
+              size={index == 0 ? 72 : 52}
               color={"white"}
               style={[{ margin: "auto" }]}
             />
           </View>
           <View style={styles.rowHalf}>
-            <CustomText size={18}>{dateFormat.day()}</CustomText>
+            <CustomText size={index == 0 ? 28 : 18} family="Itim_400Regular">
+              {dateFormat.day()}
+            </CustomText>
           </View>
           <View style={styles.rowHalf}>
-            <CustomText size={18}>{dateFormat.date()}</CustomText>
+            <CustomText size={index == 0 ? 28 : 18} family="Itim_400Regular">
+              {dateFormat.date()}
+            </CustomText>
           </View>
-          <View style={styles.rowFull}>
-            <CustomText size={36} style={styles.rowTemp}>
+          <View style={index == 0 ? styles.firstRowFull : styles.rowFull}>
+            <CustomText
+              size={index == 0 ? 46 : 26}
+              style={styles.rowTemp}
+              family="Itim_400Regular"
+            >
               {Math.floor(item.main.temp)}°C
             </CustomText>
           </View>
@@ -98,17 +106,34 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: "wrap",
     justifyContent: "center",
+    height: 100,
+    paddingLeft: 20,
+  },
+  firstContainer: {
+    backgroundColor: "#118AB2",
+    borderBottomWidth: 2,
+    borderBottomColor: "#06D6A0",
+    borderTopWidth: 2,
+    borderTopColor: "#FFD166",
+    flex: 1,
+    flexWrap: "wrap",
+    justifyContent: "center",
     height: 130,
+    paddingLeft: 20,
   },
   rowFull: {
     width: 100,
-    height: 100,
-
+    height: 80,
+    justifyContent: "center",
+  },
+  firstRowFull: {
+    width: 100,
+    height: 130,
     justifyContent: "center",
   },
   rowHalf: {
     width: 100,
-    height: 40,
+    height: 30,
     marginRight: 4,
   },
   rowTemp: {

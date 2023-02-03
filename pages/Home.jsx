@@ -7,6 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 import TheLastCities from "../components/lastCities";
 import GeoLocation from "../components/geoLocation";
+import { useFonts, Handlee_400Regular } from "@expo-google-fonts/handlee"; // importer la font que l'on souhaite sur google
 
 export default function Home({ navigation }) {
   const [lastCities, setLastCities] = useState([]);
@@ -90,6 +91,13 @@ export default function Home({ navigation }) {
     loadData();
   }, [city]);
 
+  let [fontsLoaded] = useFonts({
+    Handlee_400Regular,
+  });
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.buttonContent}>
@@ -159,5 +167,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     flex: 10,
+    fontFamily: "Handlee_400Regular",
   },
 });

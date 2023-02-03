@@ -8,6 +8,7 @@ import {
   Pressable,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useFonts, Handlee_400Regular } from "@expo-google-fonts/handlee"; // importer la font que l'on souhaite sur google
 
 import * as Location from "expo-location";
 
@@ -41,13 +42,20 @@ export default function geoLocation({ navigation }) {
     });
   };
 
+  let [fontsLoaded] = useFonts({
+    Handlee_400Regular,
+  });
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View>
-      <Text style={styles.title}>From my position</Text>
+      <Text style={styles.title}>Depuis ma position</Text>
       <Pressable style={styles.button} onPress={currentLocation}>
         {location ? (
           <View style={styles.buttonContent}>
-            <Text style={styles.textPosition}>Current position</Text>
+            <Text style={styles.textPosition}>Trouver moi</Text>
             <Ionicons name="location-outline" size={22} color="#118AB2" />
           </View>
         ) : (
@@ -71,6 +79,7 @@ const styles = StyleSheet.create({
     color: "#073B4C",
     borderBottomColor: "#073B4C",
     borderBottomWidth: 2,
+    fontFamily: "Handlee_400Regular",
   },
   button: {
     borderWidth: 2,
@@ -84,6 +93,7 @@ const styles = StyleSheet.create({
     color: "#118AB2",
     fontWeight: "600",
     fontSize: 16,
+    fontFamily: "Handlee_400Regular",
   },
   buttonContent: {
     flexDirection: "row",
