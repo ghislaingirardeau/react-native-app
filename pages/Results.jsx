@@ -1,10 +1,4 @@
-import {
-  Text,
-  View,
-  ActivityIndicator,
-  SectionList,
-  FlatList,
-} from "react-native";
+import { Text, View, ActivityIndicator } from "react-native";
 import React from "react";
 import { API_KEY } from "@env";
 
@@ -42,7 +36,13 @@ export default function Results({ route, navigation }) {
   }, [city]);
 
   return (
-    <View>
+    <View
+      style={[
+        {
+          flex: 1,
+        },
+      ]}
+    >
       {loader ? (
         <View style={[{ marginTop: 10 }]}>
           <ActivityIndicator
@@ -52,18 +52,22 @@ export default function Results({ route, navigation }) {
           />
         </View>
       ) : (
-        <View>
+        <View
+          style={[
+            {
+              flex: 1,
+              backgroundColor: globalStyle.colorSecond,
+              justifyContent: "space-between",
+            },
+          ]}
+        >
+          {weatherReport.list.map((item, index) => (
+            <WeatherRow item={item} index={index} key={index} />
+          ))}
           <WeatherSummary
             city={weatherReport.name}
             sunrise={weatherReport.sunrise}
             sunset={weatherReport.sunset}
-          />
-          <FlatList
-            data={weatherReport.list}
-            renderItem={({ item, index }) => (
-              <WeatherRow item={item} index={index} />
-            )}
-            keyExtractor={(item, index) => item.dt + index}
           />
         </View>
       )}
