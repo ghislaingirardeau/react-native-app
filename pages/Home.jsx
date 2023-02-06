@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { StyleSheet, View, TextInput, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused } from "@react-navigation/native";
 import { API_KEY } from "@env";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import globalStyle from "../assets/style/style";
@@ -16,12 +17,17 @@ export default function Home({ navigation }) {
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(true);
 
+  const isFocused = useIsFocused();
+
   const loadData = async () => {
-    try {
-      let getStorage = await AsyncStorage.getItem("@myapp");
-      getStorage ? setLastCities(JSON.parse(getStorage).cities) : "";
-    } catch (e) {
-      alert("from load", e);
+    if (isFocused) {
+      try {
+        console.log("reload from storage");
+        let getStorage = await AsyncStorage.getItem("@myapp");
+        getStorage ? setLastCities(JSON.parse(getStorage).cities) : "";
+      } catch (e) {
+        alert("from load", e);
+      }
     }
   };
 
@@ -80,7 +86,7 @@ export default function Home({ navigation }) {
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [isFocused]);
 
   let [fontsLoaded] = useFonts({
     Handlee_400Regular,
