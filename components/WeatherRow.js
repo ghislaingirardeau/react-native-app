@@ -113,8 +113,6 @@ const styles = StyleSheet.create({
     backgroundColor: globalStyle.colorThird,
     borderBottomWidth: 2,
     borderBottomColor: "#06D6A0",
-    borderTopWidth: 2,
-    borderTopColor: globalStyle.colorSecond,
     flexWrap: "wrap",
     justifyContent: "center",
     height: 130,
