@@ -22,7 +22,6 @@ export default function Home({ navigation }) {
   const loadData = async () => {
     if (isFocused) {
       try {
-        console.log("reload from storage");
         let getStorage = await AsyncStorage.getItem("@myapp");
         getStorage ? setLastCities(JSON.parse(getStorage).cities) : "";
       } catch (e) {
@@ -131,11 +130,7 @@ export default function Home({ navigation }) {
         </View>
 
         <GeoLocation navigation={navigation} />
-        <TheLastCities
-          lastCities={lastCities}
-          navigation={navigation}
-          setLastCities={setLastCities}
-        />
+        <TheLastCities lastCities={lastCities} setLastCities={setLastCities} />
         <SelectModal datas={data} doOnclick={doOnclick} showModal={showModal} />
       </View>
     </ScrollView>

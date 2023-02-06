@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -8,6 +7,7 @@ import {
   TouchableHighlight,
   Pressable,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FadeInView from "./fadeRow";
@@ -15,11 +15,9 @@ import globalStyle from "../assets/style/style";
 
 import { useFonts, Handlee_400Regular } from "@expo-google-fonts/handlee"; // importer la font que l'on souhaite sur google
 
-export default function TheLastCities({
-  navigation,
-  lastCities,
-  setLastCities,
-}) {
+export default function TheLastCities({ lastCities, setLastCities }) {
+  const navigation = useNavigation();
+
   const openFavoriteCity = (data) => {
     const { lat, lon, name } = data;
     navigation.navigate("Results", {
