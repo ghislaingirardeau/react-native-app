@@ -1,4 +1,4 @@
-import { Text, View, ActivityIndicator } from "react-native";
+import { ScrollView, View, ActivityIndicator } from "react-native";
 import React from "react";
 import { API_KEY } from "@env";
 
@@ -26,7 +26,7 @@ export default function Results({ route, navigation }) {
 
       setTimeout(() => {
         setLoader(false);
-      }, 500);
+      }, 100);
       setWeatherReport({ list: dailyresult, name, sunrise, sunset });
     }
   };
@@ -40,6 +40,7 @@ export default function Results({ route, navigation }) {
       style={[
         {
           flex: 1,
+          backgroundColor: globalStyle.colorSecond,
         },
       ]}
     >
@@ -52,10 +53,10 @@ export default function Results({ route, navigation }) {
           />
         </View>
       ) : (
-        <View
-          style={[
+        <ScrollView
+          contentContainerStyle={[
             {
-              flex: 1,
+              flexGrow: 1,
               backgroundColor: globalStyle.colorSecond,
               justifyContent: "space-between",
             },
@@ -69,7 +70,7 @@ export default function Results({ route, navigation }) {
             sunrise={weatherReport.sunrise}
             sunset={weatherReport.sunset}
           />
-        </View>
+        </ScrollView>
       )}
     </View>
   );

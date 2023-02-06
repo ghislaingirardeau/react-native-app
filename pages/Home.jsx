@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, View, TextInput, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  ScrollView,
+  ImageBackground,
+  Dimensions,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import { API_KEY } from "@env";
@@ -29,6 +36,8 @@ export default function Home({ navigation }) {
       }
     }
   };
+
+  let { height } = Dimensions.get("window");
 
   const doOnclick = async (element) => {
     console.log(element);
@@ -98,41 +107,55 @@ export default function Home({ navigation }) {
     <ScrollView
       contentContainerStyle={{
         flexGrow: 1,
-        backgroundColor: globalStyle.colorSecond,
       }}
     >
-      <View style={styles.container}>
-        <View style={styles.buttonContent}>
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeCity}
-            value={city}
-            placeholder="Taper votre ville"
-            onSubmitEditing={loadResults}
-            onFocus={clearData}
-            //onSubmitEditing = to call the function when enter is click on the keyboard
-          />
-          {data.length === 1 ? (
-            <Ionicons
-              style={[{ padding: 5, position: "absolute", right: 7 }]}
-              name="checkmark-circle-outline"
-              size={28}
-              color={globalStyle.colorThird}
+      <ImageBackground
+        source={require("../assets/fond_home.jpg")}
+        resizeMode="cover"
+        style={{ height: height - 60 }}
+      >
+        <View style={styles.container}>
+          <View style={styles.buttonContent}>
+            <TextInput
+              style={styles.input}
+              selectionColor={globalStyle.colorSecond}
+              cursorColor={globalStyle.colorSecond}
+              onChangeText={onChangeCity}
+              value={city}
+              placeholder="Taper votre ville"
+              onSubmitEditing={loadResults}
+              onFocus={clearData}
+              //onSubmitEditing = to call the function when enter is click on the keyboard
             />
-          ) : (
-            <Ionicons
-              style={[{ padding: 5, position: "absolute", right: 7 }]}
-              name="search-outline"
-              size={28}
-              color={globalStyle.colorFourth}
-            />
-          )}
-        </View>
+            {data.length === 1 ? (
+              <Ionicons
+                style={[{ padding: 5, position: "absolute", right: 7 }]}
+                name="checkmark-circle-outline"
+                size={28}
+                color={globalStyle.colorThird}
+              />
+            ) : (
+              <Ionicons
+                style={[{ padding: 5, position: "absolute", right: 7 }]}
+                name="search-outline"
+                size={28}
+                color={globalStyle.colorFourth}
+              />
+            )}
+          </View>
 
-        <GeoLocation navigation={navigation} />
-        <TheLastCities lastCities={lastCities} setLastCities={setLastCities} />
-        <SelectModal datas={data} doOnclick={doOnclick} showModal={showModal} />
-      </View>
+          <GeoLocation navigation={navigation} />
+          <TheLastCities
+            lastCities={lastCities}
+            setLastCities={setLastCities}
+          />
+          <SelectModal
+            datas={data}
+            doOnclick={doOnclick}
+            showModal={showModal}
+          />
+        </View>
+      </ImageBackground>
     </ScrollView>
   );
 }

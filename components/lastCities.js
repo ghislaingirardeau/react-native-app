@@ -61,7 +61,7 @@ export default function TheLastCities({ lastCities, setLastCities }) {
         <FadeInView delay={index * 100} key={index}>
           <TouchableHighlight
             activeOpacity={0.9}
-            underlayColor={globalStyle.colorFifth}
+            underlayColor={globalStyle.colorThird}
             onPress={() => openFavoriteCity(city)}
           >
             <View style={globalStyle.homeRowCity}>
