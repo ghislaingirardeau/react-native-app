@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, View, Text, TextInput } from "react-native";
+import { StyleSheet, View, TextInput, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_KEY } from "@env";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -90,42 +90,49 @@ export default function Home({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.buttonContent}>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeCity}
-          value={city}
-          placeholder="Taper votre ville"
-          onSubmitEditing={loadResults}
-          onFocus={clearData}
-          //onSubmitEditing = to call the function when enter is click on the keyboard
-        />
-        {data.length === 1 ? (
-          <Ionicons
-            style={[{ padding: 5, position: "absolute", right: 7 }]}
-            name="checkmark-circle-outline"
-            size={28}
-            color={globalStyle.colorThird}
+    <ScrollView
+      contentContainerStyle={{
+        flexGrow: 1,
+        backgroundColor: globalStyle.colorSecond,
+      }}
+    >
+      <View style={styles.container}>
+        <View style={styles.buttonContent}>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeCity}
+            value={city}
+            placeholder="Taper votre ville"
+            onSubmitEditing={loadResults}
+            onFocus={clearData}
+            //onSubmitEditing = to call the function when enter is click on the keyboard
           />
-        ) : (
-          <Ionicons
-            style={[{ padding: 5, position: "absolute", right: 7 }]}
-            name="search-outline"
-            size={28}
-            color={globalStyle.colorFourth}
-          />
-        )}
-      </View>
+          {data.length === 1 ? (
+            <Ionicons
+              style={[{ padding: 5, position: "absolute", right: 7 }]}
+              name="checkmark-circle-outline"
+              size={28}
+              color={globalStyle.colorThird}
+            />
+          ) : (
+            <Ionicons
+              style={[{ padding: 5, position: "absolute", right: 7 }]}
+              name="search-outline"
+              size={28}
+              color={globalStyle.colorFourth}
+            />
+          )}
+        </View>
 
-      <GeoLocation navigation={navigation} />
-      <TheLastCities
-        lastCities={lastCities}
-        navigation={navigation}
-        setLastCities={setLastCities}
-      />
-      <SelectModal datas={data} doOnclick={doOnclick} showModal={showModal} />
-    </View>
+        <GeoLocation navigation={navigation} />
+        <TheLastCities
+          lastCities={lastCities}
+          navigation={navigation}
+          setLastCities={setLastCities}
+        />
+        <SelectModal datas={data} doOnclick={doOnclick} showModal={showModal} />
+      </View>
+    </ScrollView>
   );
 }
 
@@ -133,7 +140,6 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
     flex: 1,
-    backgroundColor: globalStyle.colorSecond,
   },
   clearBtn: {
     marginTop: 20,

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, StatusBar, View } from "react-native";
+import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -55,14 +55,18 @@ function HomeNavigation() {
         name="Home"
         component={Home}
         options={{
-          title: "Welcome",
-          headerShown: false, // CHANGE THE NAME IN THE HEADER
+          title: "Rechercher",
+          /* headerShown: false, */ // CHANGE THE NAME IN THE HEADER
+          ...styleHeader,
         }}
       />
       <Tab.Screen
         name="About"
         component={About}
-        options={{ headerShown: false }} // HIDE THE HEADER NAME OF THE ROUTE
+        options={{
+          /* headerShown: false */
+          ...styleHeader,
+        }}
       />
     </Tab.Navigator>
   );
@@ -84,9 +88,8 @@ export default function App() {
             name="HomeNav"
             component={HomeNavigation}
             options={({ route }) => ({
-              title: `Votre météo par ville`,
-
-              ...styleHeader,
+              // IF SET ON TRUE GET COMMON TITLE FOR PAGE WELCOME AND ABOUT
+              headerShown: false,
             })}
           />
           <Stack.Screen
