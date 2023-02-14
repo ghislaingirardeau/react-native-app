@@ -13,6 +13,7 @@ export default function About({ route, navigation }) {
     console.log(itemId, otherParam);
   }
   const [textToTranslate, setTextToTranslate] = useState();
+  const [translation, setTranslation] = useState("");
   // TRIGGER AN EVENT WHEN CHANGING THE NAVIGATION
   /* React.useEffect(() => {
     const onNavigateToAboutPage = navigation.addListener("focus", () => {});
@@ -27,7 +28,10 @@ export default function About({ route, navigation }) {
       <TextTranslator
         textToTranslate={textToTranslate}
         setTextToTranslate={setTextToTranslate}
+        translation={translation}
+        setTranslation={setTranslation}
       />
+      <TextToSpeech translation={translation} />
     </View>
   );
 }

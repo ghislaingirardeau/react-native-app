@@ -2,9 +2,9 @@ import * as React from "react";
 import { View, StyleSheet, Button } from "react-native";
 import * as Speech from "expo-speech";
 
-export default function textToSpeech() {
+export default function textToSpeech(props) {
   const speak = () => {
-    const thingToSay = "ជំរាបសួរ តើខ្ញុំអាចសុំទឹកមួយដបបានទេ?";
+    const thingToSay = `${props.translation}`;
     Speech.speak(thingToSay, { language: "km" });
     console.log(Speech.maxSpeechInputLength, thingToSay.length);
   };

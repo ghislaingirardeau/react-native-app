@@ -6,12 +6,10 @@ import { RAPIDAPI_TRANSLATE_KEY, RAPIDAPI_TRANSLATE_HOST } from "@env";
 import axios from "axios";
 
 export default function textTranslator(props) {
-  const [translation, setTranslation] = useState("");
-
   const translate = () => {
     const data = {
       from: "fr",
-      to: "en",
+      to: "km",
       e: "",
       q: [`${props.textToTranslate}`],
     };
@@ -29,7 +27,7 @@ export default function textTranslator(props) {
     axios
       .request(options)
       .then(function (response) {
-        setTranslation(response.data[0]);
+        props.setTranslation(response.data[0]);
         console.log(response.data);
       })
       .catch(function (error) {
@@ -48,7 +46,7 @@ export default function textTranslator(props) {
         placeholder="Translate"
       />
       <Button title="translate" onPress={translate} />
-      {translation ? <Text>{translation}</Text> : undefined}
+      {props.translation ? <Text>{props.translation}</Text> : undefined}
     </View>
   );
 }
