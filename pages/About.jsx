@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View, Button } from "react-native";
-import React from "react";
+import { useState, useEffect } from "react";
 import TouchButton from "../components/Touchable";
 import CameraApp from "../components/Camera";
+import TextToSpeech from "../components/speech/textToSpeech";
+import TextTranslator from "../components/speech/textTranslator";
 import ImagePickerExample from "../components/ImagePicker";
 
 export default function About({ route, navigation }) {
@@ -10,17 +12,22 @@ export default function About({ route, navigation }) {
     const { itemId, otherParam } = route.params;
     console.log(itemId, otherParam);
   }
+  const [textToTranslate, setTextToTranslate] = useState();
   // TRIGGER AN EVENT WHEN CHANGING THE NAVIGATION
-  React.useEffect(() => {
+  /* React.useEffect(() => {
     const onNavigateToAboutPage = navigation.addListener("focus", () => {});
 
     return onNavigateToAboutPage;
-  }, [navigation]);
+  }, [navigation]); */
 
   return (
     <View style={style.container}>
-      <CameraApp />
-      <ImagePickerExample />
+      {/* <CameraApp /> */}
+      <TouchButton setTextToTranslate={setTextToTranslate} />
+      <TextTranslator
+        textToTranslate={textToTranslate}
+        setTextToTranslate={setTextToTranslate}
+      />
     </View>
   );
 }
