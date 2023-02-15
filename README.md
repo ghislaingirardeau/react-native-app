@@ -41,4 +41,8 @@ https://www.youtube.com/watch?v=gpXF9heaw8k
 Pour creer le lien avec le build:
 https://docs.expo.dev/development/create-development-builds/
 
-ensuite faire tourner le projet
+Flasher le qr code avec un scan pour avoir le lien et installer app
+click sur install, open .apk
+
+lance le projet : npx expo start --dev-client
+scan le qr code dans expo go
