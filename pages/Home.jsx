@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
 import { useState, useEffect } from "react";
 import TouchButton from "../components/Touchable";
 import TextToSpeech from "../components/speech/textToSpeech";
@@ -15,16 +15,18 @@ export default function About({ route, navigation }) {
   }, [navigation]); */
 
   return (
-    <View style={style.container}>
-      <TouchButton setTextToTranslate={setTextToTranslate} />
-      <TextTranslator
-        textToTranslate={textToTranslate}
-        setTextToTranslate={setTextToTranslate}
-        translation={translation}
-        setTranslation={setTranslation}
-      />
-      <TextToSpeech translation={translation} />
-    </View>
+    <KeyboardAvoidingView style={style.container}>
+      <View style={style.container}>
+        <TouchButton setTextToTranslate={setTextToTranslate} />
+        <TextTranslator
+          textToTranslate={textToTranslate}
+          setTextToTranslate={setTextToTranslate}
+          translation={translation}
+          setTranslation={setTranslation}
+        />
+        <TextToSpeech translation={translation} />
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -37,6 +39,5 @@ const style = StyleSheet.create({
   },
   container: {
     flex: 1,
-    margin: 5,
   },
 });

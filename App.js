@@ -52,19 +52,19 @@ function HomeNavigation() {
       })}
     >
       <Tab.Screen
+        name="FlashCards"
+        component={FlashCards}
+        options={{
+          /* headerShown: false */
+          ...styleHeader,
+        }}
+      />
+      <Tab.Screen
         name="Home"
         component={Home}
         options={{
           title: "Home",
           /* headerShown: false, */ // CHANGE THE NAME IN THE HEADER
-          ...styleHeader,
-        }}
-      />
-      <Tab.Screen
-        name="FlashCards"
-        component={FlashCards}
-        options={{
-          /* headerShown: false */
           ...styleHeader,
         }}
       />
@@ -96,10 +96,9 @@ export default function App() {
             name="Card"
             component={Card}
             options={({ route }) => ({
-              /* title: `${route.params.city}`,
+              title: `${route.params.category}`,
               headerTintColor: globalStyle.colorSecond,
-              ...styleHeader, */
-              headerShown: false,
+              ...styleHeader,
             })}
           />
         </Stack.Navigator>

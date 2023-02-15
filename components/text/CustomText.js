@@ -19,7 +19,7 @@ export default function CustomText(props) {
         ...props.style, // to accept the style props si il y en a = style que l'on veut ajouter pour personnaliser
         fontSize: props.size, // style qui sera commune a chaque utilisation du component
         fontFamily: props.family,
-        color: globalStyle.colorSecond,
+        color: globalStyle.colorPrimary,
       }}
     >
       {props.children}{" "}

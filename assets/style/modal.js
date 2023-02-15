@@ -4,19 +4,6 @@ export default {
   colorThird: "#118AB2", // blue claire
   colorFourth: "#EF476F", // rouge
   colorFifth: "#06D6A0", // vert
-  homeRowCity: {
-    height: 45,
-    padding: 10,
-    marginBottom: 5,
-    borderBottomWidth: 3,
-    borderColor: "#118AB2",
-  },
-  HomeRowCityText: {
-    color: "#118AB2",
-    fontSize: 16,
-    fontWeight: "bold",
-    fontFamily: "Handlee_400Regular",
-  },
   modalContainer: {
     backgroundColor: "#118AB2",
     borderColor: "#FFD166",
@@ -44,11 +31,16 @@ export default {
     padding: 10,
   },
   modalContent: {},
-  sectionTitle: {
-    fontSize: 18,
+  modalInput: {
+    height: 45,
+    padding: 10,
+    color: "#06D6A0",
+    borderWidth: 2,
+    fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 10,
-    color: "#073B4C",
+    borderRadius: 5,
     fontFamily: "Handlee_400Regular",
+    borderColor: "#06D6A0",
+    margin: 10,
   },
 };

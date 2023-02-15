@@ -1,10 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import { useState, useEffect } from "react";
 
-export default function CardPage() {
+export default function CardPage({ route, navigation }) {
+  const { id, category } = route.params;
   return (
     <View style={style.container}>
       <Text>Card page</Text>
+      <Text>
+        {id} {category}
+      </Text>
     </View>
   );
 }
