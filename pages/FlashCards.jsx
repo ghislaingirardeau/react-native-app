@@ -2,7 +2,36 @@ import { View, Pressable, ScrollView, StyleSheet } from "react-native";
 import { useState, useEffect } from "react";
 import CustomText from "../components/text/CustomText.js";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import SelectModal from "../components/modal/ModalSelect";
+import ModalNewCard from "../components/modal/ModalNewCard";
+
+// JSON DB
+/* 
+{
+    [
+        {
+            langToLearn: "km",
+            nativeLang: "fr",
+            datas : [
+                { 
+                    id: CAT-Timestamp, 
+                    title: "Fruits", 
+                    date: Date.now(), 
+                    myList: [
+                        {
+                            id : Word-Timestamp, 
+                            from, 
+                            to, 
+                            pronounce
+                        }
+                    ] 
+                },
+            ],
+            createOn,
+            lastChangeOn
+        }
+    ]
+}
+*/
 
 export default function FlashCards({ navigation }) {
   const [cards, setCards] = useState([
@@ -76,7 +105,7 @@ export default function FlashCards({ navigation }) {
           </View>
         </Pressable>
       </View>
-      <SelectModal
+      <ModalNewCard
         showModal={modal}
         setModal={setModal}
         setCards={setCards}

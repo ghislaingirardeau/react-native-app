@@ -61,12 +61,12 @@ const styles = StyleSheet.create({
   input: {
     height: 45,
     padding: 10,
-    color: globalStyle.colorThird,
+    color: globalStyle.colorPrimary,
     borderWidth: 2,
     fontSize: 16,
     fontWeight: "bold",
     borderRadius: 5,
     fontFamily: "Handlee_400Regular",
-    borderColor: globalStyle.colorThird,
+    borderColor: globalStyle.colorPrimary,
   },
 });

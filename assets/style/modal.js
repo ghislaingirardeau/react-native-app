@@ -1,9 +1,7 @@
 export default {
   colorPrimary: "#073B4C", // blue dark
   colorSecond: "#FFD166", // yellow
-  colorThird: "#118AB2", // blue claire
   colorFourth: "#EF476F", // rouge
-  colorFifth: "#06D6A0", // vert
   modalContainer: {
     backgroundColor: "#118AB2",
     borderColor: "#FFD166",
@@ -34,13 +32,13 @@ export default {
   modalInput: {
     height: 45,
     padding: 10,
-    color: "#06D6A0",
+    color: "#FFD166",
     borderWidth: 2,
     fontSize: 16,
     fontWeight: "bold",
     borderRadius: 5,
     fontFamily: "Handlee_400Regular",
-    borderColor: "#06D6A0",
+    borderColor: "#FFD166",
     margin: 10,
   },
 };
