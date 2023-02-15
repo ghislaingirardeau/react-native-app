@@ -5,9 +5,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useFonts, Handlee_400Regular } from "@expo-google-fonts/handlee"; // importer la font que l'on souhaite sur google
 
-import About from "./pages/About";
 import Home from "./pages/Home";
-import Results from "./pages/Results";
+import Card from "./pages/Card";
+import FlashCards from "./pages/FlashCards";
 
 import globalStyle from "./assets/style/style";
 
@@ -26,7 +26,7 @@ function HomeNavigation() {
             iconName = focused
               ? "ios-information-circle"
               : "ios-information-circle-outline";
-          } else if (route.name === "About") {
+          } else if (route.name === "FlashCards") {
             iconName = focused ? "ios-list" : "ios-list-outline";
           }
 
@@ -55,14 +55,14 @@ function HomeNavigation() {
         name="Home"
         component={Home}
         options={{
-          title: "Rechercher",
+          title: "Home",
           /* headerShown: false, */ // CHANGE THE NAME IN THE HEADER
           ...styleHeader,
         }}
       />
       <Tab.Screen
-        name="About"
-        component={About}
+        name="FlashCards"
+        component={FlashCards}
         options={{
           /* headerShown: false */
           ...styleHeader,
@@ -93,12 +93,13 @@ export default function App() {
             })}
           />
           <Stack.Screen
-            name="Results"
-            component={Results}
+            name="Card"
+            component={Card}
             options={({ route }) => ({
-              title: `${route.params.city}`,
+              /* title: `${route.params.city}`,
               headerTintColor: globalStyle.colorSecond,
-              ...styleHeader,
+              ...styleHeader, */
+              headerShown: false,
             })}
           />
         </Stack.Navigator>

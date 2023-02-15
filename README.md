@@ -45,4 +45,4 @@ Flasher le qr code avec un scan pour avoir le lien et installer app
 click sur install, open .apk
 
 lance le projet : npx expo start --dev-client
-scan le qr code dans expo go
+scan le qr code du developpement local dans expo go
