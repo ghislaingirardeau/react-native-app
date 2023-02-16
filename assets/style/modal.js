@@ -3,18 +3,18 @@ export default {
   colorSecond: "#FFD166", // yellow
   colorFourth: "#EF476F", // rouge
   modalContainer: {
-    backgroundColor: "#118AB2",
+    flex: 1,
+    backgroundColor: "white",
     borderColor: "#FFD166",
     borderWidth: 2,
     zIndex: 10,
     elevation: 3,
     position: "absolute",
     width: "100%",
+    height: "100%",
     borderRadius: 5,
-    top: 70,
   },
   modalHeader: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 2,
@@ -22,7 +22,6 @@ export default {
     padding: 5,
   },
   modalTitle: {
-    color: "#FFD166",
     fontSize: 20,
     fontWeight: "bold",
     fontFamily: "Handlee_400Regular",
@@ -32,7 +31,6 @@ export default {
   modalInput: {
     height: 45,
     padding: 10,
-    color: "#FFD166",
     borderWidth: 2,
     fontSize: 16,
     fontWeight: "bold",

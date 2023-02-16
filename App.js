@@ -4,9 +4,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useFonts, Handlee_400Regular } from "@expo-google-fonts/handlee"; // importer la font que l'on souhaite sur google
-
 import Home from "./pages/Home";
 import Card from "./pages/Card";
+import NewCard from "./pages/NewCard";
 import FlashCards from "./pages/FlashCards";
 
 import globalStyle from "./assets/style/style";
@@ -14,6 +14,7 @@ import globalStyle from "./assets/style/style";
 const Stack = createNativeStackNavigator(); // stack empile les pages avec un bouton de retour
 const Tab = createBottomTabNavigator(); // pour avoir des tabs comme navigation
 // drawer navigation = pour avoir un menu qui apparait / disparait
+
 
 function HomeNavigation() {
   return (
@@ -80,30 +81,38 @@ export default function App() {
     return null;
   }
   return (
-    <View style={{ flex: 1 }}>
-      {/* <StatusBar hidden={true}></StatusBar> */}
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="HomeNav"
-            component={HomeNavigation}
-            options={({ route }) => ({
-              // IF SET ON TRUE GET COMMON TITLE FOR PAGE WELCOME AND ABOUT
-              headerShown: false,
-            })}
-          />
-          <Stack.Screen
-            name="Card"
-            component={Card}
-            options={({ route }) => ({
-              title: `${route.params.category}`,
-              headerTintColor: globalStyle.colorSecond,
-              ...styleHeader,
-            })}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </View>
+      <View style={{ flex: 1 }}>
+        {/* <StatusBar hidden={true}></StatusBar> */}
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="HomeNav"
+              component={HomeNavigation}
+              options={({ route }) => ({
+                // IF SET ON TRUE GET COMMON TITLE FOR PAGE WELCOME AND ABOUT
+                headerShown: false,
+              })}
+            />
+            <Stack.Screen
+              name="Card"
+              component={Card}
+              options={({ route }) => ({
+                title: `${route.params.category}`,
+                headerTintColor: globalStyle.colorSecond,
+                ...styleHeader,
+              })}
+            />
+            <Stack.Screen
+              name="NewCard"
+              component={NewCard}
+              options={({ route }) => ({
+                headerTintColor: globalStyle.colorSecond,
+                ...styleHeader,
+              })}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
   );
 }
 

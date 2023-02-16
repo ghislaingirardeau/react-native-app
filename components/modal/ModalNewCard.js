@@ -8,7 +8,9 @@ export default function ModalNewCard({ showModal, setModal, cards, setCards }) {
 
   const addCard = (newItem) => {
     return new Promise((resolve, reject) => {
-      setCards([...cards, newItem]);
+      let concat = cards;
+      concat[0].datas.push(newItem);
+      setCards([...concat]);
       resolve(true);
     });
   };
@@ -19,6 +21,7 @@ export default function ModalNewCard({ showModal, setModal, cards, setCards }) {
         id: Date.now(),
         title: name,
         date: Date.now(),
+        myList: [],
       };
       let res = await addCard(newItem);
       res ? setModal(false) : undefined;
@@ -34,7 +37,7 @@ export default function ModalNewCard({ showModal, setModal, cards, setCards }) {
         <View style={modalStyle.modalHeader}>
           <Text style={modalStyle.modalTitle}>Add Category</Text>
           <Pressable onPress={() => setModal(false)}>
-            <Ionicons name={"close-circle-outline"} size={44} color={"red"} />
+            <Ionicons name={"close-circle-outline"} size={44} color={"grey"} />
           </Pressable>
         </View>
         <View style={modalStyle.modalContent}>
@@ -51,7 +54,7 @@ export default function ModalNewCard({ showModal, setModal, cards, setCards }) {
           <Button
             onPress={_addCategory}
             title="Create"
-            color="#841584"
+            color={modalStyle.colorPrimary}
             accessibilityLabel="create category button"
           />
         </View>
