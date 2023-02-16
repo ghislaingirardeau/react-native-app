@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import CustomText from "../components/text/CustomText.js";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ModalNewCard from "../components/modal/ModalNewCard";
+import ModalSettings from "../components/modal/ModalSettings";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const testDataFromLS = [
@@ -49,31 +50,26 @@ const testDataFromLS = [
 ];
 
 export default function FlashCards({ navigation }) {
-  const [cards, setCards] = useState(testDataFromLS);
+  const [cards, setCards] = useState([]);
   const [modal, setModal] = useState(false);
+  const [settingsModal, setSettingsModal] = useState(false);
 
   const loadData = async () => {
     try {
       const value = await AsyncStorage.getItem("@flashCardLang");
-
       if (value === null) {
-        console.log("dont exist");
-        // SET APP : lang from & to
-        // CREATE FIRST CATEGORY
+        setSettingsModal(true);
       } else {
         setCards(JSON.parse(value));
-        // POPUP WHICH LANG DATA TO LOAD
-        // LOAD SELECTED LANG LOCAL STORAGE INSIDE CARDS
       }
-    } catch (e) {
-      // error reading value
-    }
+    } catch (e) {}
   };
 
   const clearStorage = async () => {
     try {
       await AsyncStorage.removeItem("@flashCardLang");
       setCards([]);
+      setSettingsModal(true);
     } catch (error) {
       console.log(error);
     }
@@ -81,10 +77,6 @@ export default function FlashCards({ navigation }) {
 
   const createCategory = () => {
     setModal(true);
-
-    // show modal
-    // input name
-    // on valid = add a new card in cards & localStorage
   };
 
   const showCard = (item) => {
@@ -108,7 +100,7 @@ export default function FlashCards({ navigation }) {
       }}
     >
       <View style={style.cardsContainer}>
-        {cards[0].datas
+        {cards.length > 0
           ? cards[0].datas.map((item, i) => {
               return (
                 <Pressable
@@ -132,7 +124,7 @@ export default function FlashCards({ navigation }) {
                 </Pressable>
               );
             })
-          : undefined}
+          : null}
 
         <Pressable
           onPress={createCategory}
@@ -174,6 +166,11 @@ export default function FlashCards({ navigation }) {
         setModal={setModal}
         setCards={setCards}
         cards={cards}
+      />
+      <ModalSettings
+        showModal={settingsModal}
+        setModal={setSettingsModal}
+        setCards={setCards}
       />
     </ScrollView>
   );

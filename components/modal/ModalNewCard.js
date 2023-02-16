@@ -2,15 +2,17 @@ import { View, Text, Pressable, TextInput, Button } from "react-native";
 import modalStyle from "../../assets/style/modal";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ModalNewCard({ showModal, setModal, cards, setCards }) {
   const [name, setName] = useState("");
 
   const addCard = (newItem) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       let concat = cards;
       concat[0].datas.push(newItem);
-      setCards([...concat]);
+      setCards(concat);
+      await AsyncStorage.setItem("@flashCardLang", JSON.stringify(concat));
       resolve(true);
     });
   };
@@ -23,8 +25,9 @@ export default function ModalNewCard({ showModal, setModal, cards, setCards }) {
         date: Date.now(),
         myList: [],
       };
-      let res = await addCard(newItem);
-      res ? setModal(false) : undefined;
+      await addCard(newItem);
+      setName("");
+      setModal(false);
     } else {
       // CHECK EMPTY TOO SHORT TOO LONG IF EXIST
       console.log("the name is too short");
