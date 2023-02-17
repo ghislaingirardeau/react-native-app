@@ -48,7 +48,6 @@ export default function TouchButton(props) {
 
   const textSelected = async (text) => {
     let result = await Translate(text);
-    console.log("from await", result);
     result
       ? props.setTextToTranslate({
           id: "Word1 -" + Date.now(),

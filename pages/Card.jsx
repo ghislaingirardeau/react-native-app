@@ -3,15 +3,34 @@ import { useState, useEffect } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import * as Speech from "expo-speech";
 import TouchButton from "../components/Touchable";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import TextTranslator from "../components/speech/textTranslator";
 
 export default function CardPage({ route, navigation }) {
-  const [category, setCategory] = useState(JSON.parse(route.params.data));
   const [listTraduction, setListTrad] = useState(JSON.parse(route.params.list));
+  const { category_id } = route.params;
+  const [dataLS, setDataLS] = useState();
 
-  const addTraduction = (item) => {
+  const loadData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@flashCardLang");
+      if (value === null) {
+      } else {
+        setDataLS(JSON.parse(value));
+        console.log(dataLS[0].datas[0].myList);
+        //DEBUG RELOAD ON NAVIGATION
+      }
+    } catch (e) {}
+  };
+
+  const addTraduction = async (item) => {
     if (item) {
-      setListTrad([...listTraduction, item]);
+      let newList = [...listTraduction, item];
+      setListTrad(newList);
+      let index = dataLS[0].datas.findIndex((e) => e.id === category_id);
+      setDataLS(dataLS[0].datas[index]?.myList.push(...newList));
+      console.log("addTraduction", dataLS);
+      await AsyncStorage.setItem("@flashCardLang", JSON.stringify(dataLS));
     }
   };
 
@@ -21,7 +40,7 @@ export default function CardPage({ route, navigation }) {
   const _playTranslation = (text) => {
     const thingToSay = text;
     Speech.speak(thingToSay, {
-      language: category.langToLearn,
+      language: dataLS[0].langToLearn.slice(0, 2),
       rate: 0.6, // the voice speed
       onStart: () => console.log("start"), // FOR ANIMATION TO SET
       onDone: () => console.log("done"),
@@ -31,6 +50,11 @@ export default function CardPage({ route, navigation }) {
   useEffect(() => {
     addTraduction(textToTranslate);
   }, [textToTranslate]);
+
+  useEffect(() => {
+    /* console.log(navigation.isFocused()); */
+    loadData();
+  }, []);
 
   return (
     <View style={style.container}>
@@ -52,12 +76,6 @@ export default function CardPage({ route, navigation }) {
         );
       })}
       <TouchButton setTextToTranslate={setTextToTranslate} />
-      {/* <TextTranslator
-        textToTranslate={textToTranslate}
-        setTextToTranslate={setTextToTranslate}
-        translation={translation}
-        setTranslation={setTranslation}
-      /> */}
     </View>
   );
 }

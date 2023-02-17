@@ -80,13 +80,10 @@ export default function FlashCards({ navigation }) {
   };
 
   const showCard = (item) => {
-    console.log(cards);
     navigation.navigate("Card", {
       category: item.title, // pour le nom de la route
-      /*       category_id: item.id,
-      lang_id: cards[0].createOn,
- */ list: JSON.stringify(item.myList),
-      data: JSON.stringify(cards[0]),
+      category_id: item.id,
+      list: JSON.stringify(item.myList),
     });
   };
 
