@@ -3,9 +3,11 @@ import modalStyle from "../../assets/style/modal";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import FadeInView from "../fadeRow";
 
 export default function ModalNewCard({ showModal, setModal, cards, setCards }) {
   const [name, setName] = useState("");
+  const [triggerAnim, setTriggerAnim] = useState(true);
 
   const addCard = (newItem) => {
     return new Promise(async (resolve, reject) => {
@@ -27,41 +29,60 @@ export default function ModalNewCard({ showModal, setModal, cards, setCards }) {
       };
       await addCard(newItem);
       setName("");
-      setModal(false);
+      _triggerAnim();
     } else {
       // CHECK EMPTY TOO SHORT TOO LONG IF EXIST
       console.log("the name is too short");
     }
   };
 
+  const _triggerAnim = () => {
+    setTriggerAnim(!triggerAnim);
+    setTimeout(() => {
+      setModal(false);
+    }, 500);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setTriggerAnim(true);
+    }, 500);
+  });
+
   if (showModal) {
     return (
-      <View style={modalStyle.modalContainer}>
-        <View style={modalStyle.modalHeader}>
-          <Text style={modalStyle.modalTitle}>Add Category</Text>
-          <Pressable onPress={() => setModal(false)}>
-            <Ionicons name={"close-circle-outline"} size={44} color={"grey"} />
-          </Pressable>
+      <FadeInView triggerAnim={triggerAnim} style={modalStyle.modalContainer}>
+        <View>
+          <View style={modalStyle.modalHeader}>
+            <Text style={modalStyle.modalTitle}>Add Category</Text>
+            <Pressable onPress={_triggerAnim}>
+              <Ionicons
+                name={"close-circle-outline"}
+                size={44}
+                color={"grey"}
+              />
+            </Pressable>
+          </View>
+          <View style={modalStyle.modalContent}>
+            <TextInput
+              style={modalStyle.modalInput}
+              selectionColor={modalStyle.colorSecond}
+              cursorColor={modalStyle.colorSecond}
+              onChangeText={setName}
+              value={name}
+              placeholder="Category name"
+            />
+          </View>
+          <View style={modalStyle.modalFooter}>
+            <Button
+              onPress={_addCategory}
+              title="Create"
+              color={modalStyle.colorPrimary}
+              accessibilityLabel="create category button"
+            />
+          </View>
         </View>
-        <View style={modalStyle.modalContent}>
-          <TextInput
-            style={modalStyle.modalInput}
-            selectionColor={modalStyle.colorSecond}
-            cursorColor={modalStyle.colorSecond}
-            onChangeText={setName}
-            value={name}
-            placeholder="Category name"
-          />
-        </View>
-        <View style={modalStyle.modalFooter}>
-          <Button
-            onPress={_addCategory}
-            title="Create"
-            color={modalStyle.colorPrimary}
-            accessibilityLabel="create category button"
-          />
-        </View>
-      </View>
+      </FadeInView>
     );
   }
 }

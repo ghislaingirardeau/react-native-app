@@ -6,14 +6,17 @@ export default function FadeInView(props) {
   const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
   const pan = useRef(new Animated.ValueXY({ x: width, y: 0 })).current;
 
-  useEffect(() => {
+  const animation = (reverse) => {
     Animated.timing(pan, {
-      toValue: { x: 0, y: 0 },
+      toValue: { x: reverse, y: 0 },
       easing: Easing.ease,
-      delay: props.delay,
-      duration: 1000,
+      duration: 400,
       useNativeDriver: true,
     }).start();
+  };
+
+  useEffect(() => {
+    props.triggerAnim ? animation(0) : animation(width);
     /* Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 2000,
@@ -23,7 +26,7 @@ export default function FadeInView(props) {
       Animated.delay(props.delay),
       Animated.spring(pan, { toValue: { x: 0, y: 0 } }),
     ]).start(); */
-  }, [pan]);
+  }, [props.triggerAnim]);
 
   return (
     <Animated.View // Special animatable View
