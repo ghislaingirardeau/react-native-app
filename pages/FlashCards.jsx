@@ -17,13 +17,13 @@ const testDataFromLS = [
         date: Date.now(),
         myList: [
           {
-            id: "Word1 -" + Date.now(),
+            id: "Word1 -",
             from: "banane",
             to: "banana",
             pronounce: "xxx",
           },
           {
-            id: "Word2 -" + Date.now(),
+            id: "Word2 -",
             from: "pomme",
             to: "Apple",
             pronounce: "xxx",
@@ -80,10 +80,13 @@ export default function FlashCards({ navigation }) {
   };
 
   const showCard = (item) => {
+    console.log(cards);
     navigation.navigate("Card", {
       category: item.title, // pour le nom de la route
-      id: item.id,
-      list: JSON.stringify(item.myList),
+      /*       category_id: item.id,
+      lang_id: cards[0].createOn,
+ */ list: JSON.stringify(item.myList),
+      data: JSON.stringify(cards[0]),
     });
   };
 
@@ -190,6 +193,7 @@ const style = StyleSheet.create({
     margin: 5,
     padding: 5,
     height: 100,
+    width: "45%",
   },
   cardsText: {},
 });
