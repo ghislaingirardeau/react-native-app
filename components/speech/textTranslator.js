@@ -5,7 +5,7 @@ import { RAPIDAPI_TRANSLATE_KEY, RAPIDAPI_TRANSLATE_HOST } from "@env";
 
 import axios from "axios";
 
-export default function textTranslator(props) {
+export default function TextTranslator(props) {
   const translate = () => {
     const data = {
       from: "fr",

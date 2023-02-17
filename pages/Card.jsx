@@ -2,26 +2,21 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import * as Speech from "expo-speech";
+import TouchButton from "../components/Touchable";
+import TextTranslator from "../components/speech/textTranslator";
 
 export default function CardPage({ route, navigation }) {
-  const list = JSON.parse(route.params.list);
-
   const [category, setCategory] = useState(JSON.parse(route.params.data));
-  console.log(category);
-  list.push(
-    {
-      id: "Word1 -",
-      from: "J'aime manger les bananes",
-      to: "I like to eat banana",
-      pronounce: "xxx",
-    },
-    {
-      id: "Word2 -",
-      from: "pomme",
-      to: "Apple",
-      pronounce: "xxx",
+  const [listTraduction, setListTrad] = useState(JSON.parse(route.params.list));
+
+  const addTraduction = (item) => {
+    if (item) {
+      setListTrad([...listTraduction, item]);
     }
-  );
+  };
+
+  const [textToTranslate, setTextToTranslate] = useState();
+  /* const [translation, setTranslation] = useState(""); */
 
   const _playTranslation = (text) => {
     const thingToSay = text;
@@ -33,10 +28,14 @@ export default function CardPage({ route, navigation }) {
     });
   };
 
+  useEffect(() => {
+    addTraduction(textToTranslate);
+  }, [textToTranslate]);
+
   return (
     <View style={style.container}>
       <Text>Card page</Text>
-      {list.map((item, index) => {
+      {listTraduction.map((item, index) => {
         return (
           <View key={item.id} style={style.cardTranslate}>
             <Text style={style.cardTranslateText}>{item.from}</Text>
@@ -52,6 +51,13 @@ export default function CardPage({ route, navigation }) {
           </View>
         );
       })}
+      <TouchButton setTextToTranslate={setTextToTranslate} />
+      {/* <TextTranslator
+        textToTranslate={textToTranslate}
+        setTextToTranslate={setTextToTranslate}
+        translation={translation}
+        setTranslation={setTranslation}
+      /> */}
     </View>
   );
 }

@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Voice from "@react-native-voice/voice";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Translate from "../components/speech/translateFunction";
 
 export default function TouchButton(props) {
   const [rippleColor, setRippleColor] = useState("#FFF000");
@@ -45,23 +46,20 @@ export default function TouchButton(props) {
     // MESSAGE SI PAS DE SPEECH RECORDED
   };
 
-  const textSelected = (text) => {
-    props.setTextToTranslate(text);
+  const textSelected = async (text) => {
+    let result = await Translate(text);
+    console.log("from await", result);
+    result
+      ? props.setTextToTranslate({
+          id: "Word1 -" + Date.now(),
+          from: text,
+          to: result,
+          pronounce: "xxx",
+        })
+      : null;
   };
   return (
     <View style={styles.container}>
-      <TouchableNativeFeedback
-        /* onPress={() => {
-          setRippleColor(randomHexColor());
-        }} */
-        onPressOut={speechStop}
-        onPressIn={speechStart}
-        background={TouchableNativeFeedback.Ripple(rippleColor, true)}
-      >
-        <View style={styles.touchable}>
-          <Ionicons name={"ios-mic-outline"} size={85} color={"red"} />
-        </View>
-      </TouchableNativeFeedback>
       {results
         ? results.map((data, index) => (
             <Pressable
@@ -73,6 +71,18 @@ export default function TouchButton(props) {
             </Pressable>
           ))
         : undefined}
+      <TouchableNativeFeedback
+        /* onPress={() => {
+          setRippleColor(randomHexColor());
+        }} */
+        onPressOut={speechStop}
+        onPressIn={speechStart}
+        background={TouchableNativeFeedback.Ripple(rippleColor, true)}
+      >
+        <View style={styles.touchable}>
+          <Ionicons name={"ios-mic-outline"} size={55} color={"red"} />
+        </View>
+      </TouchableNativeFeedback>
     </View>
   );
 }
@@ -86,23 +96,23 @@ export default function TouchButton(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center",
     backgroundColor: "#ecf0f1",
     padding: 8,
   },
   touchable: {
-    width: 150,
-    height: 150,
-    borderRadius: 150,
+    width: 100,
+    height: 100,
+    borderRadius: 100,
     borderColor: "black",
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   selection: {
-    padding: 8,
-    margin: 5,
+    padding: 15,
+    margin: 10,
     borderColor: "black",
     borderWidth: 1,
   },
