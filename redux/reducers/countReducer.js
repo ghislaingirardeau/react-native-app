@@ -5,7 +5,13 @@ const initialState = {
   cards: [
     {
       id: 1,
-      title: "fruit",
+      title: "fruit store",
+      lastUpdate: "xxx",
+      createOn: "xxx",
+    },
+    {
+      id: 2,
+      title: "Veget store",
       lastUpdate: "xxx",
       createOn: "xxx",
     },
@@ -26,15 +32,11 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log(state.count);
   switch (action.type) {
-    case "COUNT_INCRESE":
+    case "ADD_CARD":
       return {
         ...state,
-        count: {
-          ...state.count,
-          myList: [...state.count.myList, action.array],
-        },
+        cards: [...state.cards, action.payload],
       };
     case "COUNT_DECRESE":
       console.log(state.count);

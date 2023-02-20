@@ -1,8 +1,8 @@
 // redux/actions/countAction.js
-export const increment = (array) => {
+export const addCard = (payload) => {
   return {
-    type: "COUNT_INCRESE",
-    array,
+    type: "ADD_CARD",
+    payload,
   };
 };
 

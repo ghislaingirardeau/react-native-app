@@ -5,11 +5,16 @@ import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FadeInView from "../fadeRow";
 
+import { useDispatch } from "react-redux";
+import { addCard } from "../../redux/actions/countAction";
+
 export default function ModalNewCard({ showModal, setModal, cards, setCards }) {
   const [name, setName] = useState("");
   const [triggerAnim, setTriggerAnim] = useState(true);
 
-  const addCard = (newItem) => {
+  const dispatch = useDispatch();
+
+  /* const addCard = (newItem) => {
     return new Promise(async (resolve, reject) => {
       let concat = cards;
       concat[0].datas.push(newItem);
@@ -17,17 +22,18 @@ export default function ModalNewCard({ showModal, setModal, cards, setCards }) {
       await AsyncStorage.setItem("@flashCardLang", JSON.stringify(concat));
       resolve(true);
     });
-  };
+  }; */
 
   const _addCategory = async () => {
     if (name.length > 3) {
       const newItem = {
         id: Date.now(),
         title: name,
-        date: Date.now(),
-        myList: [],
+        lastUpdate: "xxx",
+        createOn: Date.now(),
       };
-      await addCard(newItem);
+      /* await addCard(newItem); */
+      dispatch(addCard(newItem));
       setName("");
       _triggerAnim();
     } else {

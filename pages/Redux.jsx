@@ -6,7 +6,7 @@ import { increment, decrement } from "../redux/actions/countAction";
 export default function Home() {
   const dispatch = useDispatch();
 
-  const count = useSelector((store) => store.count.count);
+  const count = useSelector((store) => store.flashCards.count);
 
   const handleIncrement = () => {
     dispatch(

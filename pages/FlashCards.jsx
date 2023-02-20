@@ -1,4 +1,4 @@
-import { View, Pressable, ScrollView, StyleSheet } from "react-native";
+import { View, Pressable, ScrollView, StyleSheet, Text } from "react-native";
 import { useState, useEffect } from "react";
 import CustomText from "../components/text/CustomText.js";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -6,53 +6,14 @@ import ModalNewCard from "../components/modal/ModalNewCard";
 import ModalSettings from "../components/modal/ModalSettings";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const testDataFromLS = [
-  {
-    langToLearn: "km",
-    nativeLang: "fr",
-    datas: [
-      {
-        id: "CAT1 -" + Date.now(),
-        title: "Fruits",
-        date: Date.now(),
-        myList: [
-          {
-            id: "Word1 -",
-            from: "banane",
-            to: "banana",
-            pronounce: "xxx",
-          },
-          {
-            id: "Word2 -",
-            from: "pomme",
-            to: "Apple",
-            pronounce: "xxx",
-          },
-        ],
-      },
-      {
-        id: "CAT2 -" + Date.now(),
-        title: "Vegetables",
-        date: Date.now(),
-        myList: [
-          {
-            id: "Word2 -" + Date.now(),
-            from: "carrote",
-            to: "carot",
-            pronounce: "xxx",
-          },
-        ],
-      },
-    ],
-    createOn: "xxx",
-    lastChangeOn: "xxx",
-  },
-];
+import { useSelector, useDispatch } from "react-redux";
 
 export default function FlashCards({ navigation }) {
   const [cards, setCards] = useState([]);
   const [modal, setModal] = useState(false);
   const [settingsModal, setSettingsModal] = useState(false);
+
+  const cardsStore = useSelector((store) => store.flashCards.cards);
 
   const loadData = async () => {
     try {
@@ -100,8 +61,8 @@ export default function FlashCards({ navigation }) {
       }}
     >
       <View style={style.cardsContainer}>
-        {cards.length > 0
-          ? cards[0].datas.map((item, i) => {
+        {cardsStore.length > 0
+          ? cardsStore.map((item, i) => {
               return (
                 <Pressable
                   key={item.id}
@@ -116,9 +77,6 @@ export default function FlashCards({ navigation }) {
                       style={style.cardsText}
                     >
                       {item.title}
-                    </CustomText>
-                    <CustomText size={20} family="Itim_400Regular">
-                      {item.date}
                     </CustomText>
                   </View>
                 </Pressable>

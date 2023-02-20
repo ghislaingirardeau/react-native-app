@@ -56,19 +56,19 @@ function HomeNavigation() {
       })}
     >
       <Tab.Screen
-        name="Redux"
-        component={Redux}
-        options={{
-          /* headerShown: false */
-          ...styleHeader,
-        }}
-      />
-      <Tab.Screen
         name="FlashCards"
         component={FlashCards}
         options={{
           title: "FlashCards",
           /* headerShown: false, */ // CHANGE THE NAME IN THE HEADER
+          ...styleHeader,
+        }}
+      />
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          /* headerShown: false */
           ...styleHeader,
         }}
       />
