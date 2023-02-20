@@ -9,12 +9,15 @@ import Card from "./pages/Card";
 import NewCard from "./pages/NewCard";
 import FlashCards from "./pages/FlashCards";
 
+import Redux from "./pages/Redux";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
 import globalStyle from "./assets/style/style";
 
 const Stack = createNativeStackNavigator(); // stack empile les pages avec un bouton de retour
 const Tab = createBottomTabNavigator(); // pour avoir des tabs comme navigation
 // drawer navigation = pour avoir un menu qui apparait / disparait
-
 
 function HomeNavigation() {
   return (
@@ -53,18 +56,18 @@ function HomeNavigation() {
       })}
     >
       <Tab.Screen
-        name="FlashCards"
-        component={FlashCards}
+        name="Redux"
+        component={Redux}
         options={{
           /* headerShown: false */
           ...styleHeader,
         }}
       />
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="FlashCards"
+        component={FlashCards}
         options={{
-          title: "Home",
+          title: "FlashCards",
           /* headerShown: false, */ // CHANGE THE NAME IN THE HEADER
           ...styleHeader,
         }}
@@ -81,6 +84,7 @@ export default function App() {
     return null;
   }
   return (
+    <Provider store={store}>
       <View style={{ flex: 1 }}>
         {/* <StatusBar hidden={true}></StatusBar> */}
         <NavigationContainer>
@@ -113,6 +117,7 @@ export default function App() {
           </Stack.Navigator>
         </NavigationContainer>
       </View>
+    </Provider>
   );
 }
 
