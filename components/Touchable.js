@@ -12,11 +12,11 @@ import Translate from "../components/speech/translateFunction";
 
 export default function TouchButton(props) {
   const [rippleColor, setRippleColor] = useState("#FFF000");
-  const [results, setResults] = useState();
+  const [results, setResults] = useState(); // EMPTY
 
   const speechStart = async () => {
     try {
-      let res = await Voice.start("fr-FR"); //km-KM
+      let res = await Voice.start(props.settings.from); //km-KM
     } catch (error) {
       console.log("from start", error);
     }
@@ -50,7 +50,7 @@ export default function TouchButton(props) {
     let result = await Translate(text);
     result
       ? props.setTextToTranslate({
-          id: "Word1 -" + Date.now(),
+          id: Date.now(),
           from: text,
           to: result,
           pronounce: "xxx",

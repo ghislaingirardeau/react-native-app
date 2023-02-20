@@ -15,7 +15,7 @@ export default function FlashCards({ navigation }) {
 
   const cardsStore = useSelector((store) => store.flashCards.cards);
 
-  const loadData = async () => {
+  /* const loadData = async () => {
     try {
       const value = await AsyncStorage.getItem("@flashCardLang");
       if (value === null) {
@@ -24,7 +24,7 @@ export default function FlashCards({ navigation }) {
         setCards(JSON.parse(value));
       }
     } catch (e) {}
-  };
+  }; */
 
   const clearStorage = async () => {
     try {
@@ -44,13 +44,13 @@ export default function FlashCards({ navigation }) {
     navigation.navigate("Card", {
       category: item.title, // pour le nom de la route
       category_id: item.id,
-      list: JSON.stringify(item.myList),
+      /* list: JSON.stringify(item.myList), */
     });
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     loadData();
-  }, []);
+  }, []); */
 
   return (
     <ScrollView

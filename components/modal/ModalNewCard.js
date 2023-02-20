@@ -6,9 +6,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import FadeInView from "../fadeRow";
 
 import { useDispatch } from "react-redux";
-import { addCard } from "../../redux/actions/countAction";
+import { addCard } from "../../redux/actions/cardsAction";
 
-export default function ModalNewCard({ showModal, setModal, cards, setCards }) {
+export default function ModalNewCard({ showModal, setModal }) {
   const [name, setName] = useState("");
   const [triggerAnim, setTriggerAnim] = useState(true);
 
@@ -28,7 +28,7 @@ export default function ModalNewCard({ showModal, setModal, cards, setCards }) {
     if (name.length > 3) {
       const newItem = {
         id: Date.now(),
-        title: name,
+        title: name.trim(),
         lastUpdate: "xxx",
         createOn: Date.now(),
       };

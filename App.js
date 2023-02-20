@@ -9,7 +9,6 @@ import Card from "./pages/Card";
 import NewCard from "./pages/NewCard";
 import FlashCards from "./pages/FlashCards";
 
-import Redux from "./pages/Redux";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
