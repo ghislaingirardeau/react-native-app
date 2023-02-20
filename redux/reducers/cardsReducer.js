@@ -53,12 +53,16 @@ export default (state = initialState, action) => {
         },
       };
     case "ADD_ITEM_IN_CARD":
+      let index = state.cards.findIndex((e) => e.title == action.idCard);
+      let newCardArray = state.cards;
+      newCardArray[index].lastUpdate = Date.now();
       return {
         ...state,
         cardItems: {
           ...state.cardItems,
           [action.idCard]: [...state.cardItems[action.idCard], action.payload],
         },
+        cards: [...newCardArray],
       };
 
     default:

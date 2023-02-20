@@ -78,6 +78,13 @@ export default function FlashCards({ navigation }) {
                     >
                       {item.title}
                     </CustomText>
+                    <CustomText
+                      size={20}
+                      family="Itim_400Regular"
+                      style={style.cardsText}
+                    >
+                      {item.lastUpdate}
+                    </CustomText>
                   </View>
                 </Pressable>
               );

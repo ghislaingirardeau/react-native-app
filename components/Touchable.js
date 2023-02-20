@@ -42,7 +42,7 @@ export default function TouchButton(props) {
     setResults(results.value);
   };
   const onSpeechError = (error) => {
-    console.error("si pas de speech", error);
+    alert("Pas de texte enregistrer");
     // MESSAGE SI PAS DE SPEECH RECORDED
   };
 
