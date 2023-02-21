@@ -4,36 +4,28 @@ import CustomText from "../components/text/CustomText.js";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ModalNewCard from "../components/modal/ModalNewCard";
 import ModalSettings from "../components/modal/ModalSettings";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useSelector, useDispatch } from "react-redux";
+import { cleanAll } from "../redux/actions/cardsAction";
 
 export default function FlashCards({ navigation }) {
-  const [cards, setCards] = useState([]);
   const [modal, setModal] = useState(false);
   const [settingsModal, setSettingsModal] = useState(false);
 
   const cardsStore = useSelector((store) => store.flashCards.cards);
+  const settings = useSelector((store) => store.flashCards.languages);
+  const dispatch = useDispatch();
 
-  /* const loadData = async () => {
-    try {
-      const value = await AsyncStorage.getItem("@flashCardLang");
-      if (value === null) {
-        setSettingsModal(true);
-      } else {
-        setCards(JSON.parse(value));
-      }
-    } catch (e) {}
-  }; */
+  const loadData = () => {
+    console.log("settings");
+    if (Object.keys(settings).length === 0) {
+      setSettingsModal(true);
+    }
+  };
 
   const clearStorage = async () => {
-    try {
-      await AsyncStorage.removeItem("@flashCardLang");
-      setCards([]);
-      setSettingsModal(true);
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(cleanAll());
+    setSettingsModal(true);
   };
 
   const createCategory = () => {
@@ -44,13 +36,12 @@ export default function FlashCards({ navigation }) {
     navigation.navigate("Card", {
       category: item.title, // pour le nom de la route
       category_id: item.id,
-      /* list: JSON.stringify(item.myList), */
     });
   };
 
-  /* useEffect(() => {
+  useEffect(() => {
     loadData();
-  }, []); */
+  }, []);
 
   return (
     <ScrollView
@@ -126,17 +117,8 @@ export default function FlashCards({ navigation }) {
           </View>
         </Pressable>
       </View>
-      <ModalNewCard
-        showModal={modal}
-        setModal={setModal}
-        setCards={setCards}
-        cards={cards}
-      />
-      <ModalSettings
-        showModal={settingsModal}
-        setModal={setSettingsModal}
-        setCards={setCards}
-      />
+      <ModalNewCard showModal={modal} setModal={setModal} />
+      <ModalSettings showModal={settingsModal} setModal={setSettingsModal} />
     </ScrollView>
   );
 }

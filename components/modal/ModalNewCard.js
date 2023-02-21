@@ -14,16 +14,6 @@ export default function ModalNewCard({ showModal, setModal }) {
 
   const dispatch = useDispatch();
 
-  /* const addCard = (newItem) => {
-    return new Promise(async (resolve, reject) => {
-      let concat = cards;
-      concat[0].datas.push(newItem);
-      setCards(concat);
-      await AsyncStorage.setItem("@flashCardLang", JSON.stringify(concat));
-      resolve(true);
-    });
-  }; */
-
   const _addCategory = async () => {
     if (name.length > 3) {
       const newItem = {
@@ -32,7 +22,6 @@ export default function ModalNewCard({ showModal, setModal }) {
         lastUpdate: "xxx",
         createOn: Date.now(),
       };
-      /* await addCard(newItem); */
       dispatch(addCard(newItem));
       setName("");
       _triggerAnim();

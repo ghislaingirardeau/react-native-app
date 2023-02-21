@@ -2,15 +2,19 @@ import { View, Text, Pressable, TextInput, Button } from "react-native";
 import modalStyle from "../../assets/style/modal";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import ModalSelector from "react-native-modal-selector";
 
-export default function ModalFirstSettings({ showModal, setModal, setCards }) {
+import { useDispatch } from "react-redux";
+import { initSettings } from "../../redux/actions/cardsAction";
+
+export default function ModalFirstSettings({ showModal, setModal }) {
   //DEBUG IF USE STATE, DONT SHOW THE SELECT BECAUSE REACTIVE
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [fromLabel, setFromLabel] = useState("Native lang");
   const [toLabel, setToLabel] = useState("Learning lang");
+
+  const dispatch = useDispatch();
 
   const data = [
     { key: "fr-FR", label: "French" },
@@ -30,20 +34,12 @@ export default function ModalFirstSettings({ showModal, setModal, setCards }) {
   };
 
   const _addLangSettings = async () => {
-    const setLanguage = [
-      {
-        langToLearn: to,
-        nativeLang: from,
-        datas: [],
-        createOn: Date.now(),
-        lastChangeOn: "xxx",
-      },
-    ];
-    try {
-      await AsyncStorage.setItem("@flashCardLang", JSON.stringify(setLanguage));
-      setCards(setLanguage);
-      setModal(false);
-    } catch (error) {}
+    const setLanguage = {
+      from,
+      to,
+    };
+    dispatch(initSettings(setLanguage));
+    setModal(false);
   };
 
   if (showModal) {
@@ -51,9 +47,6 @@ export default function ModalFirstSettings({ showModal, setModal, setCards }) {
       <View style={modalStyle.modalContainer}>
         <View style={modalStyle.modalHeader}>
           <Text style={modalStyle.modalTitle}>Languages</Text>
-          <Pressable onPress={() => setModal(false)}>
-            <Ionicons name={"close-circle-outline"} size={44} color={"red"} />
-          </Pressable>
         </View>
         <View style={modalStyle.modalContent}>
           <ModalSelector

@@ -3,17 +3,11 @@ import { useState, useEffect } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import * as Speech from "expo-speech";
 import TouchButton from "../components/Touchable";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import TextTranslator from "../components/speech/textTranslator";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addItemInCard } from "../redux/actions/cardsAction";
 
 export default function CardPage({ route, navigation }) {
-  /* const [listTraduction, setListTrad] = useState(JSON.parse(route.params.list));
-  
-  const [dataLS, setDataLS] = useState(); */
-
   const [itemsList, setItemsList] = useState();
 
   const { category, category_id } = route.params;
@@ -23,32 +17,13 @@ export default function CardPage({ route, navigation }) {
 
   const dispatch = useDispatch();
 
-  /* const loadData = async () => {
-    try {
-      const value = await AsyncStorage.getItem("@flashCardLang");
-      if (value === null) {
-      } else {
-        setDataLS(JSON.parse(value));
-        console.log(dataLS[0].datas[0].myList);
-        //DEBUG RELOAD ON NAVIGATION
-      }
-    } catch (e) {}
-  }; */
-
   const addTraduction = async (item) => {
     if (item) {
       await dispatch(addItemInCard(item, category));
-      /* let newList = [...listTraduction, item];
-      setListTrad(newList);
-      let index = dataLS[0].datas.findIndex((e) => e.id === category_id);
-      setDataLS(dataLS[0].datas[index]?.myList.push(...newList));
-      console.log("addTraduction", dataLS);
-      await AsyncStorage.setItem("@flashCardLang", JSON.stringify(dataLS)); */
     }
   };
 
   const [textToTranslate, setTextToTranslate] = useState();
-  /* const [translation, setTranslation] = useState(""); */
 
   const _playTranslation = (text) => {
     const thingToSay = text;
@@ -70,7 +45,6 @@ export default function CardPage({ route, navigation }) {
 
   return (
     <View style={style.container}>
-      <Text>Card page</Text>
       {itemsList
         ? itemsList.map((item, index) => {
             return (

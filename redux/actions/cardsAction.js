@@ -1,13 +1,14 @@
-export const addCard = (payload) => {
+export const initSettings = (payload) => {
   return {
-    type: "ADD_CARD",
+    type: "INIT_SETTINGS",
     payload,
   };
 };
 
-export const selectCard = () => {
+export const addCard = (payload) => {
   return {
-    type: "SELECT_CARD",
+    type: "ADD_CARD",
+    payload,
   };
 };
 
@@ -16,5 +17,11 @@ export const addItemInCard = (payload, idCard) => {
     type: "ADD_ITEM_IN_CARD",
     payload,
     idCard,
+  };
+};
+
+export const cleanAll = () => {
+  return {
+    type: "CLEAN_ALL",
   };
 };

@@ -64,6 +64,19 @@ export default (state = initialState, action) => {
         },
         cards: [...newCardArray],
       };
+    case "INIT_SETTINGS":
+      console.log("INIT_SETTINGS", action.payload);
+      return {
+        ...state,
+        languages: { from: action.payload.from, to: action.payload.to },
+      };
+    case "CLEAN_ALL":
+      return {
+        ...state,
+        cards: [],
+        cardItems: {},
+        languages: {},
+      };
 
     default:
       return state;

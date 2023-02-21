@@ -2,11 +2,11 @@ import { RAPIDAPI_TRANSLATE_KEY, RAPIDAPI_TRANSLATE_HOST } from "@env";
 
 import axios from "axios";
 
-export default function Translate(textToTranslate) {
+export default function Translate(textToTranslate, from, to) {
   return new Promise((resolve, reject) => {
     const data = {
-      from: "fr",
-      to: "en",
+      from: from,
+      to: to,
       e: "",
       q: [textToTranslate],
     };

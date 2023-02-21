@@ -47,7 +47,7 @@ export default function TouchButton(props) {
   };
 
   const textSelected = async (text) => {
-    let result = await Translate(text);
+    let result = await Translate(text, props.settings.from, props.settings.to);
     result
       ? props.setTextToTranslate({
           id: Date.now(),
@@ -70,15 +70,15 @@ export default function TouchButton(props) {
             </Pressable>
           ))
         : undefined}
-      {/* <TouchableNativeFeedback
+      <TouchableNativeFeedback
         onPressOut={speechStop}
         onPressIn={speechStart}
         background={TouchableNativeFeedback.Ripple(rippleColor, true)}
-      > */}
-      <View style={styles.touchable}>
-        <Ionicons name={"ios-mic-outline"} size={55} color={"red"} />
-      </View>
-      {/* </TouchableNativeFeedback> */}
+      >
+        <View style={styles.touchable}>
+          <Ionicons name={"ios-mic-outline"} size={55} color={"red"} />
+        </View>
+      </TouchableNativeFeedback>
     </View>
   );
 }
