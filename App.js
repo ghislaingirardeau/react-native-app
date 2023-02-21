@@ -10,7 +10,9 @@ import NewCard from "./pages/NewCard";
 import FlashCards from "./pages/FlashCards";
 
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { store, persistor } from "./redux/store";
+
+import { PersistGate } from "redux-persist/integration/react";
 
 import globalStyle from "./assets/style/style";
 
@@ -84,38 +86,40 @@ export default function App() {
   }
   return (
     <Provider store={store}>
-      <View style={{ flex: 1 }}>
-        {/* <StatusBar hidden={true}></StatusBar> */}
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="HomeNav"
-              component={HomeNavigation}
-              options={({ route }) => ({
-                // IF SET ON TRUE GET COMMON TITLE FOR PAGE WELCOME AND ABOUT
-                headerShown: false,
-              })}
-            />
-            <Stack.Screen
-              name="Card"
-              component={Card}
-              options={({ route }) => ({
-                title: `${route.params.category}`,
-                headerTintColor: globalStyle.colorSecond,
-                ...styleHeader,
-              })}
-            />
-            <Stack.Screen
-              name="NewCard"
-              component={NewCard}
-              options={({ route }) => ({
-                headerTintColor: globalStyle.colorSecond,
-                ...styleHeader,
-              })}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
+      <PersistGate loading={null} persistor={persistor}>
+        <View style={{ flex: 1 }}>
+          {/* <StatusBar hidden={true}></StatusBar> */}
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="HomeNav"
+                component={HomeNavigation}
+                options={({ route }) => ({
+                  // IF SET ON TRUE GET COMMON TITLE FOR PAGE WELCOME AND ABOUT
+                  headerShown: false,
+                })}
+              />
+              <Stack.Screen
+                name="Card"
+                component={Card}
+                options={({ route }) => ({
+                  title: `${route.params.category}`,
+                  headerTintColor: globalStyle.colorSecond,
+                  ...styleHeader,
+                })}
+              />
+              <Stack.Screen
+                name="NewCard"
+                component={NewCard}
+                options={({ route }) => ({
+                  headerTintColor: globalStyle.colorSecond,
+                  ...styleHeader,
+                })}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </View>
+      </PersistGate>
     </Provider>
   );
 }

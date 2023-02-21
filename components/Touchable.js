@@ -70,18 +70,15 @@ export default function TouchButton(props) {
             </Pressable>
           ))
         : undefined}
-      <TouchableNativeFeedback
-        /* onPress={() => {
-          setRippleColor(randomHexColor());
-        }} */
+      {/* <TouchableNativeFeedback
         onPressOut={speechStop}
         onPressIn={speechStart}
         background={TouchableNativeFeedback.Ripple(rippleColor, true)}
-      >
-        <View style={styles.touchable}>
-          <Ionicons name={"ios-mic-outline"} size={55} color={"red"} />
-        </View>
-      </TouchableNativeFeedback>
+      > */}
+      <View style={styles.touchable}>
+        <Ionicons name={"ios-mic-outline"} size={55} color={"red"} />
+      </View>
+      {/* </TouchableNativeFeedback> */}
     </View>
   );
 }
